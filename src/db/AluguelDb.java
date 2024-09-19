@@ -31,7 +31,6 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo {
     public void alugarVeiculo(Cliente cliente, Veiculo veiculo, String localRetirada, long dataInicio) {
 
     }
-
     @Override
     public void devolverVeiculo(Cliente cliente, Veiculo veiculo, String localDevolucao, long dataFim) {
 
