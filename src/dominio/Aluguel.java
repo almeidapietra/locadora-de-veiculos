@@ -9,6 +9,7 @@ public class Aluguel {
     private long dataInicio;
     private long dataFim;
     private boolean ativo;
+    private boolean devolvido;
 
     public Aluguel(String id, Veiculo veiculo, Cliente cliente, String localRetirada, long dataInicio) {
         this.id = id;
@@ -18,8 +19,8 @@ public class Aluguel {
         this.dataInicio = dataInicio;
         this.dataFim = 0;
         this.ativo = true;
+        this.devolvido = false; // Inicialmente, não foi devolvido
     }
-
 
     public String getId() {
         return id;
@@ -60,8 +61,15 @@ public class Aluguel {
     public void setDataFim(long dataFim) {
         this.dataFim = dataFim;
         this.ativo = false;  // Aluguel finalizado
+        this.devolvido = true; // Marca como devolvido
     }
 
+    public boolean isDevolvido() {
+        return devolvido;
+    }
 
+    public void setDevolvido(boolean devolvido) {
+        this.devolvido = devolvido;
+    }
 }
 
