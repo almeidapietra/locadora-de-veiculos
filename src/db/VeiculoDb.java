@@ -1,4 +1,5 @@
 package db;
+
 import dominio.Veiculo;
 import interfaces.IBancoDeDados;
 
@@ -15,7 +16,11 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
     }
 
     @Override
-    public Veiculo buscarPorId(String id) {
+    public Veiculo buscarPorCpf(String id) {
+        return null;
+    }
+
+    public Veiculo buscarPorCnpj(String id) {
         return null;
     }
 

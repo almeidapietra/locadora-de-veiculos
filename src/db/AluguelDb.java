@@ -28,7 +28,11 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
         }
 
         @Override
-        public Aluguel buscarPorId (String id){
+        public Aluguel buscarPorCpf (String id){
+            return null;
+        }
+
+        public Aluguel buscarPorCnpj(String id){
             return null;
         }
 
