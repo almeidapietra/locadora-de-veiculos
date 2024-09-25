@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import db.AgenciaDb;
 import db.AluguelDb;
 import db.ClienteDb;
@@ -7,7 +6,6 @@ import dominio.Agencia;
 import dominio.Aluguel;
 import dominio.Cliente;
 import dominio.Veiculo;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -131,22 +129,12 @@ public class Main {
     }
 
     private static void gerenciarAlugueis(AluguelDb aluguelDb, Scanner scanner, List<Veiculo> veiculos) {
-
     }
 
     private static void gerenciarClientes(ClienteDb clienteDb, Scanner scanner) {
-
     }
 
     private static void gerenciarVeiculos(VeiculoDb veiculoDb, Scanner scanner) {
     }
 
 }
-
-=======
-public class Main {
-    public static void main(String[] args) {
-
-    }
-}
->>>>>>> feature-Mayara

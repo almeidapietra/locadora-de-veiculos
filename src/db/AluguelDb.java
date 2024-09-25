@@ -5,7 +5,7 @@ import dominio.Cliente;
 import dominio.Veiculo;
 import interfaces.AluguelVeiculo;
 import interfaces.IBancoDeDados;
-
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +13,29 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
 
     private List<Aluguel> alugueis = new ArrayList<>();
     private List<Veiculo> veiculos;
+    File file = new File("alugueis.ser");
 
     public AluguelDb(List<Veiculo> veiculos) {
         this.veiculos = veiculos;
+        carregarDados();
+    }
+
+    private void carregarDados() {
+        if (file.exists()) {
+            try (ObjectInputStream arquivo = new ObjectInputStream(new FileInputStream(file))) {
+                alugueis = (List<Aluguel>) arquivo.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void salvarDados() {
+        try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
+            arquivo.writeObject(alugueis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -28,6 +48,7 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
             }
         }
         alugueis.add(aluguel);
+        salvarDados();
         return true;
     }
 
@@ -36,6 +57,7 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
         for (int i = 0; i < alugueis.size(); i++) {
             if (alugueis.get(i).getId().equals(aluguel.getId())) {
                 alugueis.set(i, aluguel);
+                salvarDados();
                 return true;
             }
         }
@@ -44,9 +66,9 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
     }
 
     @Override
-    public Aluguel buscarPorId(String id) {
+    public Aluguel buscar(String valor) {
         for (Aluguel aluguel : alugueis) {
-            if (aluguel.getId().equals(id)) {
+            if (aluguel.getId().equals(valor)) {
                 return aluguel;
             }
         }
@@ -59,6 +81,7 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
         for (int i = 0; i < alugueis.size(); i++) {
             if (alugueis.get(i).getId().equals(id)) {
                 alugueis.remove(i);
+                salvarDados();
                 return true;
             }
         }

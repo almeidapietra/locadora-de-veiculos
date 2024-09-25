@@ -2,13 +2,36 @@ package db;
 
 import dominio.Veiculo;
 import interfaces.IBancoDeDados;
-
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class VeiculoDb implements IBancoDeDados<Veiculo> {
 
     private List<Veiculo> veiculos = new ArrayList<>();
+    File file = new File("veiculos.ser");
+
+    public VeiculoDb() {
+        carregarDados();
+    }
+
+    private void carregarDados() {
+        if (file.exists()) {
+            try (ObjectInputStream arquivo = new ObjectInputStream(new FileInputStream(file))) {
+                veiculos = (List<Veiculo>) arquivo.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void salvarDados() {
+        try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
+            arquivo.writeObject(veiculos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public boolean cadastrar(Veiculo veiculo) {
@@ -20,6 +43,7 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
             return false;
         } else {
             veiculos.add(veiculo);
+            salvarDados();
             System.out.println("Veículo cadastrado com sucesso!");
             return true;
         }
@@ -31,6 +55,7 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
             if (veiculos.get(i).getPlaca().equals(veiculo.getPlaca())) {
                 veiculos.set(i, veiculo);
                 System.out.println("Veículo alterado com sucesso!");
+                salvarDados();
                 return true;
             }
         }
@@ -39,9 +64,9 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
     }
 
     @Override
-    public Veiculo buscarPorId(String id) {
+    public Veiculo buscar(String valor) {
         for (Veiculo v : veiculos) {
-            if (v.getPlaca().equals(id)) {
+            if (v.getPlaca().equals(valor)) {
                 return v;
             }
         }
@@ -50,21 +75,33 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
     }
 
     @Override
-    public boolean deletar(String id) {
-        return false;
-    }
-    }
-
-
-    private boolean veiculoJaExiste(String placa) {
-        for (Veiculo v : veiculos) {
-            if (v.getPlaca().equals(placa)) {
-                return true;
+    public boolean deletar(String valor) {
+        boolean removed = false;
+        for (Veiculo veiculo : veiculos) {
+            if (veiculo.getPlaca().equalsIgnoreCase(valor)) {
+                veiculos.remove(veiculo);
+                salvarDados();
+                removed = true;
+                return removed;
             }
         }
-        return false;
+        if (!removed) {
+            throw new IllegalArgumentException("Erro ao excluir! Cliente não foi encontrado.");
+        }
+        return removed;
     }
+
+
+private boolean veiculoJaExiste(String placa) {
+    for (Veiculo v : veiculos) {
+        if (v.getPlaca().equals(placa)) {
+            return true;
+        }
+    }
+    return false;
 }
+}
+
 
 
 
