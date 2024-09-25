@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/locadora-de-veiculos.iml" filepath="$PROJECT_DIR$/.idea/locadora-de-veiculos.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/ProjetoAgenciaAluguel.iml" filepath="$PROJECT_DIR$/ProjetoAgenciaAluguel.iml" />
+>>>>>>> feature-Mayara
     </modules>
   </component>
 </project>

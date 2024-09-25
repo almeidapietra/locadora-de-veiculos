@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature-Mayara
 package dominio;
 
 public class Aluguel {
@@ -72,4 +76,7 @@ public class Aluguel {
         this.devolvido = devolvido;
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> feature-Mayara
