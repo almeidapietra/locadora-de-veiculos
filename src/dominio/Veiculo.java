@@ -38,6 +38,3 @@ public class Veiculo implements Serializable {
         this.disponivel = disponivel;
     }
 }
-
-
->>>>>>> feature-Mayara

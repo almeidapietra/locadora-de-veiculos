@@ -53,7 +53,7 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
                 return true;
             }
         }
-        throw new IllegalArgumentException("Erro! Cliente não encontrado.");
+        throw new IllegalArgumentException("Erro! Cliente nï¿½o encontrado.");
     }
 
     @Override
@@ -78,7 +78,7 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
             }
         }
         if (!removed) {
-            throw new IllegalArgumentException("Erro ao excluir! Cliente não foi encontrado.");
+            throw new IllegalArgumentException("Erro ao excluir! Cliente nï¿½o foi encontrado.");
         }
         return removed;
     }
