@@ -1,10 +1,10 @@
+package src;
+
 import db.AgenciaDb;
 import db.AluguelDb;
 import db.ClienteDb;
 import db.VeiculoDb;
 import dominio.Agencia;
-import dominio.Aluguel;
-import dominio.Cliente;
 import dominio.Veiculo;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +92,7 @@ public class Main {
                 System.out.print("Digite o endereço da agência: ");
                 String enderecoAgencia = scanner.nextLine();
 
-                Agencia agencia = new Agencia(idAgencia, nomeAgencia, enderecoAgencia);
+                Agencia agencia = new Agencia(nomeAgencia, enderecoAgencia);
                 boolean cadastrouAgencia = agenciaDb.cadastrar(agencia);
                 if (cadastrouAgencia) {
                     System.out.println("Agência cadastrada com sucesso!");
@@ -104,7 +104,7 @@ public class Main {
             case 2:
                 System.out.print("Digite o nome da agência: ");
                 String nomeBusca = scanner.nextLine();
-                Agencia agenciaEncontrada = agenciaDb.buscarPorNome(nomeBusca);
+                Agencia agenciaEncontrada = agenciaDb.buscar(nomeBusca);
                 if (agenciaEncontrada != null) {
                     System.out.println("Agência encontrada: " + agenciaEncontrada.getNome());
                 } else {
