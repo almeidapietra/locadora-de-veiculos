@@ -1,6 +1,8 @@
 package dominio;
+import java.io.Serializable;
 
-public class Aluguel {
+public class Aluguel implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String id;
     private Veiculo veiculo;
     private Cliente cliente;

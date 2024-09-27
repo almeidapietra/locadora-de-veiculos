@@ -5,11 +5,13 @@ import dominio.Cliente;
 import dominio.Veiculo;
 import interfaces.AluguelVeiculo;
 import interfaces.IBancoDeDados;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente, Veiculo> {
+    private static final long serialVersionUID = 1L;
 
     private List<Aluguel> alugueis = new ArrayList<>();
     private List<Veiculo> veiculos;
@@ -40,7 +42,6 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
 
     @Override
     public boolean cadastrar(Aluguel aluguel) {
-
         for (Aluguel a : alugueis) {
             // Se já houver um aluguel com o mesmo ID, não cadastra
             if (a.getId().equals(aluguel.getId())) {

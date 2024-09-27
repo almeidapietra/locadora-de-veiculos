@@ -4,6 +4,7 @@ import dominio.Veiculo;
 import interfaces.IBancoDeDados;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class VeiculoDb implements IBancoDeDados<Veiculo> {
@@ -35,14 +36,11 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
 
     @Override
     public boolean cadastrar(Veiculo veiculo) {
-        if (veiculos.contains(veiculo)) {
-            System.out.println("Veículo já cadastrado!");
-            return false;
-        } else if (veiculoJaExiste(veiculo.getPlaca())) {
+        if (veiculoJaExiste(veiculo.getPlaca())) {
             System.out.println("Já existe um veículo com a mesma placa!");
-            return false;
-        } else {
-            veiculos.add(veiculo);
+        return false;
+    } else {
+        veiculos.add(veiculo);
             salvarDados();
             System.out.println("Veículo cadastrado com sucesso!");
             return true;
@@ -76,21 +74,17 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
 
     @Override
     public boolean deletar(String valor) {
-        boolean removed = false;
-        for (Veiculo veiculo : veiculos) {
+    Iterator<Veiculo> iterator = veiculos.iterator();
+    while (iterator.hasNext()) {
+        Veiculo veiculo = iterator.next();
             if (veiculo.getPlaca().equalsIgnoreCase(valor)) {
-                veiculos.remove(veiculo);
+                iterator.remove();
                 salvarDados();
-                removed = true;
-                return removed;
+                return true;
             }
         }
-        if (!removed) {
-            throw new IllegalArgumentException("Erro ao excluir! Cliente não foi encontrado.");
-        }
-        return removed;
+     throw new IllegalArgumentException("Erro ao excluir! Cliente não foi encontrado.");
     }
-
 
 private boolean veiculoJaExiste(String placa) {
     for (Veiculo v : veiculos) {

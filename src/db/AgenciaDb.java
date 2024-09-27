@@ -1,7 +1,6 @@
 package db;
 
 import dominio.Agencia;
-import dominio.Cliente;
 import interfaces.IBancoDeDados;
 import java.util.ArrayList;
 import java.util.List;

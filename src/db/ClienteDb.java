@@ -4,6 +4,7 @@ import dominio.Cliente;
 import interfaces.IBancoDeDados;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ClienteDb implements IBancoDeDados<Cliente> {
@@ -68,18 +69,16 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
 
     @Override
     public boolean deletar(String valor) {
-        boolean removed = false;
-        for (Cliente cliente : clientes) {
-            if (cliente.getNome().equalsIgnoreCase(valor)) {
-                clientes.remove(cliente);
+        Iterator<Cliente> iterator = clientes.iterator();
+        while (iterator.hasNext()) {
+            Cliente cliente = iterator.next();
+            if (cliente.getNome().toLowerCase().contains(valor.toLowerCase())) {
+                iterator.remove();
                 salvarDados();
-                removed = true;
-                return removed;
+                return true;
             }
         }
-        if (!removed) {
-            throw new IllegalArgumentException("Erro ao excluir! Cliente n�o foi encontrado.");
-        }
-        return removed;
+        throw new IllegalArgumentException("Erro ao excluir! Cliente n�o foi encontrado.");
+
     }
 }
