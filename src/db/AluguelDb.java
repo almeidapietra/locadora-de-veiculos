@@ -3,7 +3,6 @@ package db;
 import dominio.Aluguel;
 import dominio.Cliente;
 import dominio.Veiculo;
-import interfaces.AluguelVeiculo;
 import interfaces.IBancoDeDados;
 
 import java.io.*;
