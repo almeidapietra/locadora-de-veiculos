@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1cdcfa48-e6a0-4656-9a82-fc9d35aaa6c8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/locadora-de-veiculos" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/locadora-de-veiculos/src/gerenciamento/GerenciadorV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjetoAgenciaAluguel.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/agencia.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/locadora-de-veiculos/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/locadora-de-veiculos/.idea/locadora-de-veiculos.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/locadora-de-veiculos/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/locadora-de-veiculos/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/locadora-de-veiculos/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/locadora-de-veiculos/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locadora-de-veiculos/src/db/AgenciaDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/locadora-de-veiculos/src/db/AgenciaDb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locadora-de-veiculos/src/db/AluguelDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/locadora-de-veiculos/src/db/AluguelDb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locadora-de-veiculos/src/db/ClienteDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/locadora-de-veiculos/src/db/ClienteDb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locadora-de-veiculos/src/db/VeiculoDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/locadora-de-veiculos/src/db/VeiculoDb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locadora-de-veiculos/src/dominio/Aluguel.java" beforeDir="false" afterPath="$PROJECT_DIR$/locadora-de-veiculos/src/dominio/Aluguel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locadora-de-veiculos/src/dominio/Caminhao.java" beforeDir="false" afterPath="$PROJECT_DIR$/locadora-de-veiculos/src/dominio/Caminhao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locadora-de-veiculos/src/dominio/Carro.java" beforeDir="false" afterPath="$PROJECT_DIR$/locadora-de-veiculos/src/dominio/Carro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locadora-de-veiculos/src/dominio/Moto.java" beforeDir="false" afterPath="$PROJECT_DIR$/locadora-de-veiculos/src/dominio/Moto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locadora-de-veiculos/src/dominio/Veiculo.java" beforeDir="false" afterPath="$PROJECT_DIR$/locadora-de-veiculos/src/dominio/Veiculo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/ProjetoAgenciaAluguel.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/db/AgenciaDb.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/db/AluguelDb.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/db/ClienteDb.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/db/VeiculoDb.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/dominio/Agencia.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/dominio/Aluguel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/dominio/Caminhao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/dominio/Carro.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/dominio/Cliente$ClientePessoaFisica.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/dominio/Cliente$ClientePessoaJuridica.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/dominio/Cliente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/dominio/ClientePessoaFisica.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/dominio/ClientePessoaJuridica.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/dominio/Moto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/dominio/Veiculo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/gerenciamento/GerenciadorV.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/interfaces/AluguelVeiculo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/stc-projeto-POO2/interfaces/IBancoDeDados.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/db/AgenciaDb.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/db/AluguelDb.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/db/ClienteDb.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/db/VeiculoDb.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dominio/Agencia.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dominio/Aluguel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dominio/Caminhao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dominio/Carro.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dominio/Cliente.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dominio/ClientePessoaFisica.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dominio/ClientePessoaJuridica.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dominio/Moto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dominio/Veiculo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interfaces/AluguelVeiculo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interfaces/IBancoDeDados.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/veiculos.ser" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2mdRQSeSHVbyKiNG4NTcmZaGv4o" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="flattenModules" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/Gupy/Desktop/stc-projeto-POO2&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.idea" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1cdcfa48-e6a0-4656-9a82-fc9d35aaa6c8" name="Changes" comment="" />
+      <created>1727404449993</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1727404449993</updated>
+      <workItem from="1727404450996" duration="15844000" />
+      <workItem from="1727441808471" duration="9000" />
+      <workItem from="1727441819724" duration="74000" />
+      <workItem from="1727441896315" duration="168000" />
+      <workItem from="1727442066924" duration="1519000" />
+      <workItem from="1727443591181" duration="6000" />
+      <workItem from="1727443672149" duration="5450000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
