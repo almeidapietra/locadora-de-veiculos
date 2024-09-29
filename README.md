@@ -104,8 +104,16 @@ O sistema utiliza abstrações (interfaces) ao invés de classes concretas diret
 
 ## Integrantes:
 
-Gustavo de Queiroz
+Gustavo de Queiroz 
+
+
 Gustavo Habib
+
+
 Mayara Santos
+
+
 Pietra Almeida
+
+
 Rosângela Batista
