@@ -62,16 +62,8 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
     @Override
     public Agencia buscar(String valor) {
         for (Agencia agencia : agencias) {
-            if (agencia.getNome().toLowerCase().contains(valor.toLowerCase())) {
-                return agencia;
-            }
-        }
-        return null;
-    }
-
-    public Agencia buscarPorEndereco(String endereco) {
-        for (Agencia agencia : agencias) {
-            if (agencia.getEndereco().contains(endereco)) {
+            if (agencia.getNome().toLowerCase().contains(valor.toLowerCase()) ||
+                    agencia.getEndereco().toLowerCase().contains(valor.toLowerCase())) {
                 return agencia;
             }
         }
@@ -86,7 +78,7 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
                 agencias.remove(agencia);
                 salvarDados();
                 removed = true;
-                return removed;
+                break;
             }
         }
         if (!removed) {
@@ -94,4 +86,9 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
         }
         return removed;
     }
+
+    public List<Agencia> listar() {
+        return new ArrayList<>(agencias);  // Vai retornar lista de agências
+    }
+
 }

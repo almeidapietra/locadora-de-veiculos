@@ -19,8 +19,9 @@ public class GerenciadorV {
             System.out.println();
             System.out.println("1 - Cadastrar Agência");
             System.out.println("2 - Alterar Agência");
-            System.out.println("3 - Buscar Agência por Nome");
+            System.out.println("3 - Consultar Agência");
             System.out.println("4 - Deletar Agência");
+            System.out.println("5 - Listar Agências");
             System.out.println("0 - Voltar ao menu principal");
             System.out.print("Opção: ");
 
@@ -35,10 +36,13 @@ public class GerenciadorV {
                     alterarAgencia(agenciaDb, scanner);
                     break;
                 case 3:
-                    buscarAgenciaPorNome(agenciaDb, scanner);
+                    buscarAgenciaPorNomeOuendereco(agenciaDb, scanner);
                     break;
                 case 4:
                     deletarAgencia(agenciaDb, scanner);
+                    break;
+                case 5:
+                    listarAgencias(agenciaDb);
                     break;
                 case 0:
                     continuar = false;
@@ -83,11 +87,11 @@ public class GerenciadorV {
         System.out.println(sucesso ? "Agência alterada com sucesso!" : "Erro ao alterar a agência.");
     }
 
-    private void buscarAgenciaPorNome(AgenciaDb agenciaDb, Scanner scanner) {
-        System.out.print("Digite o nome da agência: ");
-        String nome = scanner.nextLine();
+    private void buscarAgenciaPorNomeOuendereco(AgenciaDb agenciaDb, Scanner scanner) {
+        System.out.print("Digite o nome ou endereço da agência: ");
+        String valor = scanner.nextLine();
 
-        Agencia agencia = agenciaDb.buscar(nome);
+        Agencia agencia = agenciaDb.buscar(valor);
         if (agencia != null) {
             System.out.println("Agência encontrada: ");
             System.out.println("Nome: " + agencia.getNome());
@@ -106,6 +110,17 @@ public class GerenciadorV {
             System.out.println(sucesso ? "Agência deletada com sucesso." : "Erro: Agência não encontrada.");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());  // Exibir a mensagem da exceção no console
+        }
+    }
+    private void listarAgencias(AgenciaDb agenciaDb) {
+        List<Agencia> agencias = agenciaDb.listar();
+        if (agencias.isEmpty()) {
+            System.out.println("Nenhuma agência cadastrada.");
+        } else {
+            System.out.println("Agências cadastradas:");
+            for (Agencia agencia : agencias) {
+                System.out.println("ID: " + agencia.getId() + ", Nome: " + agencia.getNome() + ", Endereço: " + agencia.getEndereco());
+            }
         }
     }
 

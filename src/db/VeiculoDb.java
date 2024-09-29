@@ -44,7 +44,6 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
     } else {
         veiculos.add(veiculo);
         salvarDados();
-        System.out.println("Veículo cadastrado com sucesso!");
         return true;
         }
     }
@@ -54,7 +53,6 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
         for (int i = 0; i < veiculos.size(); i++) {
             if (veiculos.get(i).getPlaca().equals(veiculo.getPlaca())) {
                 veiculos.set(i, veiculo);
-                System.out.println("Veículo alterado com sucesso!");
                 salvarDados();
                 return true;
             }
