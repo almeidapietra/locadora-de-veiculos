@@ -13,25 +13,7 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
     File file = new File("veiculos.ser");
 
     public VeiculoDb() {
-        carregarDados();
-    }
-
-    private void carregarDados() {
-        if (file.exists()) {
-            try (ObjectInputStream arquivo = new ObjectInputStream(new FileInputStream(file))) {
-                veiculos = (List<Veiculo>) arquivo.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void salvarDados() {
-        try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
-            arquivo.writeObject(veiculos);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        DadosWR.carregarDados(file, veiculos, "Veiculo");
     }
 
     @Override
@@ -41,7 +23,7 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
         return false;
     } else {
         veiculos.add(veiculo);
-            salvarDados();
+            DadosWR.salvarDados(file, veiculos);
             System.out.println("Veículo cadastrado com sucesso!");
             return true;
         }
@@ -53,7 +35,7 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
             if (veiculos.get(i).getPlaca().equals(veiculo.getPlaca())) {
                 veiculos.set(i, veiculo);
                 System.out.println("Veículo alterado com sucesso!");
-                salvarDados();
+                DadosWR.salvarDados(file, veiculos);
                 return true;
             }
         }
@@ -79,7 +61,7 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
         Veiculo veiculo = iterator.next();
             if (veiculo.getPlaca().equalsIgnoreCase(valor)) {
                 iterator.remove();
-                salvarDados();
+                DadosWR.salvarDados(file, veiculos);
                 return true;
             }
         }

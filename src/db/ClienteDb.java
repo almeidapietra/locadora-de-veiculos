@@ -12,25 +12,7 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
     File file = new File("clientes.ser");
 
     public ClienteDb() {
-        carregarDados();
-    }
-
-    private void carregarDados() {
-        if (file.exists()) {
-            try (ObjectInputStream arquivo = new ObjectInputStream(new FileInputStream(file))) {
-                clientes = (List<Cliente>) arquivo.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void salvarDados() {
-        try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
-            arquivo.writeObject(clientes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        DadosWR.carregarDados(file, clientes, "Cliente");
     }
 
     @Override
@@ -41,7 +23,7 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
             }
         }
         clientes.add(cliente);
-        salvarDados();
+        DadosWR.salvarDados(file, clientes);
         return true;
     }
 
@@ -50,7 +32,7 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
         for (Cliente a : clientes) {
             if (a.getNome().equals(cliente.getNome())) {
                 clientes.set(clientes.indexOf(a), cliente);
-                salvarDados();
+                DadosWR.salvarDados(file, clientes);
                 return true;
             }
         }
@@ -74,7 +56,7 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
             Cliente cliente = iterator.next();
             if (cliente.getNome().toLowerCase().contains(valor.toLowerCase())) {
                 iterator.remove();
-                salvarDados();
+                DadosWR.salvarDados(file, clientes);
                 return true;
             }
         }

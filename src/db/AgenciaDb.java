@@ -11,25 +11,7 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
     File file = new File("agencia.ser");
 
     public AgenciaDb() {
-        carregarDados();
-    }
-
-    private void carregarDados() {
-        if (file.exists()) {
-            try (ObjectInputStream arquivo = new ObjectInputStream(new FileInputStream(file))) {
-                agencias = (List<Agencia>) arquivo.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void salvarDados() {
-        try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
-            arquivo.writeObject(agencias);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        DadosWR.carregarDados(file, agencias, "Agencia");
     }
 
     @Override
@@ -41,7 +23,7 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
             }
         }
         agencias.add(agencia);
-        salvarDados();
+        DadosWR.salvarDados(file, agencias);
         return true;
     }
 
@@ -50,7 +32,7 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
         for (Agencia a : agencias) {
             if (a.getId().equals(agencia.getId())) {
                 agencias.set(agencias.indexOf(a), agencia);
-                salvarDados();
+                DadosWR.salvarDados(file, agencias);
                 return true;
             }
         }
@@ -83,7 +65,7 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
         for (Agencia agencia : agencias) {
             if (agencia.getNome().equalsIgnoreCase(nome)) {
                 agencias.remove(agencia);
-                salvarDados();
+                DadosWR.salvarDados(file, agencias);
                 removed = true;
                 return removed;
             }

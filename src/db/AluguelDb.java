@@ -19,25 +19,7 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
 
     public AluguelDb(List<Veiculo> veiculos) {
         this.veiculos = veiculos;
-        carregarDados();
-    }
-
-    private void carregarDados() {
-        if (file.exists()) {
-            try (ObjectInputStream arquivo = new ObjectInputStream(new FileInputStream(file))) {
-                alugueis = (List<Aluguel>) arquivo.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void salvarDados() {
-        try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
-            arquivo.writeObject(alugueis);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        DadosWR.carregarDados(file, alugueis, "Aluguel");
     }
 
     @Override
@@ -49,7 +31,7 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
             }
         }
         alugueis.add(aluguel);
-        salvarDados();
+        DadosWR.salvarDados(file, alugueis);
         return true;
     }
 
@@ -58,7 +40,7 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
         for (int i = 0; i < alugueis.size(); i++) {
             if (alugueis.get(i).getId().equals(aluguel.getId())) {
                 alugueis.set(i, aluguel);
-                salvarDados();
+                DadosWR.salvarDados(file, alugueis);
                 return true;
             }
         }
@@ -82,7 +64,7 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
         for (int i = 0; i < alugueis.size(); i++) {
             if (alugueis.get(i).getId().equals(id)) {
                 alugueis.remove(i);
-                salvarDados();
+                DadosWR.salvarDados(file, alugueis);
                 return true;
             }
         }
