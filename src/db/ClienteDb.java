@@ -2,6 +2,7 @@ package db;
 
 import dominio.Aluguel;
 import dominio.Cliente;
+import dominio.Veiculo;
 import interfaces.IBancoDeDados;
 import java.io.*;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
 
     public void salvarDados() {
         try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
-            arquivo.writeObject(file);
+            arquivo.writeObject(clientes);
         } catch (IOException e) {
             System.err.println("Erro ao salvar os dados: " + e.getMessage());
             e.printStackTrace();

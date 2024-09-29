@@ -98,6 +98,7 @@ public class GerenciadorV {
             System.out.println("Endereço: " + agencia.getEndereco());
         } else {
             System.out.println("Agência não encontrada.");
+
         }
     }
 
@@ -120,6 +121,18 @@ public class GerenciadorV {
             System.out.println("Agências cadastradas:");
             for (Agencia agencia : agencias) {
                 System.out.println("ID: " + agencia.getId() + ", Nome: " + agencia.getNome() + ", Endereço: " + agencia.getEndereco());
+            }
+        }
+    }
+
+    private void listarAgencias(AgenciaDb agenciaDb) {
+        List<Agencia> agencias = agenciaDb.listar();
+        if (agencias.isEmpty()) {
+            System.out.println("Nenhuma agência cadastrado.");
+        } else {
+            System.out.println("Agências cadastrados:");
+            for (Agencia agencia : agencias) {
+                System.out.println("Local: " + agencia.getNome() + ", Endereço: " + agencia.getEndereco());
             }
         }
     }
@@ -182,9 +195,6 @@ public class GerenciadorV {
         String modelo = scanner.nextLine();
 
         Veiculo veiculo = new Veiculo(placa, modelo);
-
-        boolean sucesso = veiculoDb.cadastrar(veiculo);
-        System.out.println(sucesso ? "Veículo cadastrado com sucesso!" : "Erro: Veículo já cadastrado.");
     }
 
     private void alterarVeiculo(VeiculoDb veiculoDb, Scanner scanner) {

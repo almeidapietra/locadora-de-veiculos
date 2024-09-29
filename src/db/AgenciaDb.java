@@ -1,6 +1,7 @@
 package db;
 
 import dominio.Agencia;
+import dominio.Veiculo;
 import interfaces.IBancoDeDados;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
 
     public void salvarDados() {
         try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
-            arquivo.writeObject(file);
+            arquivo.writeObject(agencias);
         } catch (IOException e) {
             System.err.println("Erro ao salvar os dados: " + e.getMessage());
             e.printStackTrace();
@@ -88,7 +89,6 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
     }
 
     public List<Agencia> listar() {
-        return new ArrayList<>(agencias);  // Vai retornar lista de agências
+        return agencias;
     }
-
 }
