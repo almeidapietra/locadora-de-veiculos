@@ -94,6 +94,10 @@ private boolean veiculoJaExiste(String placa) {
     }
     return false;
 }
+    public List<Veiculo> listar() {
+        return veiculos;
+    }
+
 }
 
 

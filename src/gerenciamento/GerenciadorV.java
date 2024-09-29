@@ -121,17 +121,18 @@ public class GerenciadorV {
         boolean continuar = true;
 
         while (continuar) {
-        System.out.println("[Gerenciamento de Veículos]");
-        System.out.println();
-        System.out.println("1 - Cadastrar Veiculo");
-        System.out.println("2 - Alterar Veiculo");
-        System.out.println("3 - Buscar Veiculo");
-        System.out.println("4 - Deletar Veiculo");
-        System.out.println("5 - Voltar ao menu principal");
-        System.out.println("Opção: ");
+            System.out.println("[Gerenciamento de Veículos]");
+            System.out.println();
+            System.out.println("1 - Cadastrar Veiculo");
+            System.out.println("2 - Alterar Veiculo");
+            System.out.println("3 - Buscar Veiculo");
+            System.out.println("4 - Deletar Veiculo");
+            System.out.println("5 - Listar Veiculo");
+            System.out.println("6 - Voltar ao menu principal");
+            System.out.println("Opção: ");
 
-        int opcao = scanner.nextInt();
-        scanner.nextLine();
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
 
 
             switch (opcao) {
@@ -148,6 +149,8 @@ public class GerenciadorV {
                     deletarVeiculo(veiculoDb, scanner);
                     break;
                 case 5:
+                    listarVeiculos(veiculoDb);
+                case 6:
                     continuar = false;
                     break;
                 default:
@@ -208,5 +211,18 @@ public class GerenciadorV {
 
         boolean sucesso = veiculoDb.deletar(placa);
         System.out.println(sucesso ? "Veículo deletado com sucesso." : "Erro: Veículo não encontrado.");
+    }
+
+    private void listarVeiculos(VeiculoDb veiculoDb) {
+        List<Veiculo> veiculos = veiculoDb.listar();
+        if (veiculos.isEmpty()) {
+            System.out.println("Nenhum veículo cadastrado.");
+        } else {
+            System.out.println("Veículos cadastrados:");
+            for (Veiculo veiculo : veiculos) {
+                System.out.println("Placa: " + veiculo.getPlaca() + ", Modelo: " + veiculo.getModelo());
+            }
+        }
+
     }
 }
