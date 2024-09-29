@@ -43,7 +43,7 @@ public class Main {
                     break;
 
                 case 2:
-                    gerenciadorV.gerenciarAlugueis(aluguelDb, scanner, veiculos);
+                    gerenciadorV.gerenciarAlugueis(aluguelDb, clienteDb, veiculoDb, scanner);
                     break;
 
                 case 3:
