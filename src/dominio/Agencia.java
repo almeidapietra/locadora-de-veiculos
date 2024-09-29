@@ -1,17 +1,23 @@
 package dominio;
+import java.io.Serializable;
 
-public class Agencia {
-    private String id;
+public class Agencia implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private static int ultimoId = 0;
+    private Integer id;
     private String nome;
     private String endereco;
 
-    public Agencia(String id, String nome, String endereco) {
-        this.id = id;
+    public Agencia() {
+    }
+
+    public Agencia(String nome, String endereco) {
+        this.id = ++ultimoId;
         this.nome = nome;
         this.endereco = endereco;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -29,5 +35,14 @@ public class Agencia {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    @Override
+    public String toString() {
+        return "Agencia: " +
+                "Id = " + id +
+                ", Nome = " + nome +
+                ", Endereco = " + endereco +
+                '.';
     }
 }

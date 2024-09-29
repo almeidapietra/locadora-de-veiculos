@@ -12,4 +12,3 @@ public interface AluguelVeiculo<T extends Cliente, V extends Veiculo> {
 
     void devolverVeiculo(T cliente, V veiculo, String localDevolucao, long dataFim);
 }
-

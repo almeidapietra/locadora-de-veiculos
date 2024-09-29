@@ -4,9 +4,34 @@ import dominio.Agencia;
 import interfaces.IBancoDeDados;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
 
 public class AgenciaDb implements IBancoDeDados<Agencia> {
     private List<Agencia> agencias = new ArrayList<>();
+    File file = new File("agencia.ser");
+
+    public AgenciaDb() {
+        carregarDados();
+    }
+
+    public void carregarDados() {
+        if (file.exists()) {
+            try (ObjectInputStream arquivo = new ObjectInputStream(new FileInputStream(file))) {
+                agencias = (List<Agencia>) arquivo.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void salvarDados() {
+        try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
+            arquivo.writeObject(file);
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar os dados: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public boolean cadastrar(Agencia agencia) {
@@ -17,6 +42,7 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
             }
         }
         agencias.add(agencia);
+        salvarDados();
         return true;
     }
 
@@ -25,6 +51,7 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
         for (Agencia a : agencias) {
             if (a.getId().equals(agencia.getId())) {
                 agencias.set(agencias.indexOf(a), agencia);
+                salvarDados();
                 return true;
             }
         }
@@ -33,27 +60,10 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
     }
 
     @Override
-    public Agencia buscarPorId(String id) {
+    public Agencia buscar(String valor) {
         for (Agencia agencia : agencias) {
-            if (agencia.getId().equals(id)) {
-                return agencia;
-            }
-        }
-        return null;
-    }
-
-    public Agencia buscarPorNome(String nome) {
-        for (Agencia agencia : agencias) {
-            if (agencia.getNome().equalsIgnoreCase(nome)) {
-                return agencia;
-            }
-        }
-        return null;
-    }
-
-    public Agencia buscarPorEndereco(String endereco) {
-        for (Agencia agencia : agencias) {
-            if (agencia.getEndereco().contains(endereco)) {
+            if (agencia.getNome().toLowerCase().contains(valor.toLowerCase()) ||
+                    agencia.getEndereco().toLowerCase().contains(valor.toLowerCase())) {
                 return agencia;
             }
         }
@@ -61,11 +71,24 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
     }
 
     @Override
-    public boolean deletar(String id) {
-        boolean removed = agencias.removeIf(agencia -> agencia.getId().equals(id));
+    public boolean deletar(String nome) {
+        boolean removed = false;
+        for (Agencia agencia : agencias) {
+            if (agencia.getNome().equalsIgnoreCase(nome)) {
+                agencias.remove(agencia);
+                salvarDados();
+                removed = true;
+                break;
+            }
+        }
         if (!removed) {
             throw new IllegalArgumentException("Erro ao excluir! Agência não foi encontrada.");
         }
         return removed;
     }
+
+    public List<Agencia> listar() {
+        return new ArrayList<>(agencias);  // Vai retornar lista de agências
+    }
+
 }
