@@ -24,6 +24,6 @@ public class Cliente implements Serializable {
     public static class ClientePessoaFisica extends Cliente {
     }
 
-    public static class ClientePessoaJuridica {
+    public static class ClientePessoaJuridica extends Cliente {
     }
 }
