@@ -21,6 +21,7 @@ public class GerenciadorV {
             System.out.println("2 - Alterar Agência");
             System.out.println("3 - Buscar Agência por Nome");
             System.out.println("4 - Deletar Agência");
+            System.out.println("5 - Listar Agências");
             System.out.println("0 - Voltar ao menu principal");
             System.out.print("Opção: ");
 
@@ -39,6 +40,9 @@ public class GerenciadorV {
                     break;
                 case 4:
                     deletarAgencia(agenciaDb, scanner);
+                    break;
+                case 5:
+                    listarAgencias(agenciaDb);
                     break;
                 case 0:
                     continuar = false;
@@ -94,6 +98,7 @@ public class GerenciadorV {
             System.out.println("Endereço: " + agencia.getEndereco());
         } else {
             System.out.println("Agência não encontrada.");
+
         }
     }
 
@@ -106,6 +111,18 @@ public class GerenciadorV {
             System.out.println(sucesso ? "Agência deletada com sucesso." : "Erro: Agência não encontrada.");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());  // Exibir a mensagem da exceção no console
+        }
+    }
+
+    private void listarAgencias(AgenciaDb agenciaDb) {
+        List<Agencia> agencias = agenciaDb.listar();
+        if (agencias.isEmpty()) {
+            System.out.println("Nenhuma agência cadastrado.");
+        } else {
+            System.out.println("Agências cadastrados:");
+            for (Agencia agencia : agencias) {
+                System.out.println("Local: " + agencia.getNome() + ", Endereço: " + agencia.getEndereco());
+            }
         }
     }
 
@@ -167,9 +184,6 @@ public class GerenciadorV {
         String modelo = scanner.nextLine();
 
         Veiculo veiculo = new Veiculo(placa, modelo);
-
-        boolean sucesso = veiculoDb.cadastrar(veiculo);
-        System.out.println(sucesso ? "Veículo cadastrado com sucesso!" : "Erro: Veículo já cadastrado.");
     }
 
     private void alterarVeiculo(VeiculoDb veiculoDb, Scanner scanner) {

@@ -35,7 +35,7 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
 
     public void salvarDados() {
         try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
-            arquivo.writeObject(file);
+            arquivo.writeObject(alugueis);
         } catch (IOException e) {
             System.err.println("Erro ao salvar os dados: " + e.getMessage());
             e.printStackTrace();

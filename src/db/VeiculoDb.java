@@ -29,7 +29,7 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
 
     public void salvarDados() {
         try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
-            arquivo.writeObject(file);
+            arquivo.writeObject(veiculos);
         } catch (IOException e) {
             System.err.println("Erro ao salvar os dados: " + e.getMessage());
             e.printStackTrace();
@@ -88,14 +88,15 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
      throw new IllegalArgumentException("Erro ao excluir! Cliente não foi encontrado.");
     }
 
-private boolean veiculoJaExiste(String placa) {
-    for (Veiculo v : veiculos) {
-        if (v.getPlaca().equals(placa)) {
-            return true;
+    private boolean veiculoJaExiste(String placa) {
+        for (Veiculo v : veiculos) {
+            if (v.getPlaca().equals(placa)) {
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
+
     public List<Veiculo> listar() {
         return veiculos;
     }
