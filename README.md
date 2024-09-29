@@ -1,10 +1,9 @@
 # Sistema de Locadora de Veículos
 
 
-Descrição do Projeto
 Este projeto é um sistema de locação de veículos que permite o gerenciamento de agências, aluguéis, clientes e veículos. O sistema oferece funcionalidades para gerenciar todas as etapas do processo de aluguel de veículos. O projeto foi desenvolvido como projeto final do módulo III - programa Santander Coders - Back-end JAVA pela ADA TECH.
 
-##Funcionalidades
+## Funcionalidades
 Gerenciar Agências
 Gerenciar Aluguéis
 Gerenciar Clientes
