@@ -3,6 +3,7 @@ import db.AluguelDb;
 import db.ClienteDb;
 import db.VeiculoDb;
 import dominio.Veiculo;
+import dominio.Cliente;
 import gerenciamento.GerenciadorV;
 
 import java.util.ArrayList;
