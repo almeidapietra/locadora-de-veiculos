@@ -30,7 +30,7 @@ public class Main {
             System.out.println("2 - Gerenciar Aluguéis");
             System.out.println("3 - Gerenciar Clientes");
             System.out.println("4 - Gerenciar Veículos");
-            System.out.println("5 - Sair");
+            System.out.println("0 - Sair");
             System.out.print("Opção: ");
             System.out.println();
 
@@ -54,7 +54,7 @@ public class Main {
                     gerenciadorV.gerenciarVeiculos(veiculoDb, scanner);
                     break;
 
-                case 5:
+                case 0:
                     continuar = false;
                     System.out.println("Saindo do sistema...");
                     break;

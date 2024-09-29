@@ -1,5 +1,6 @@
 package db;
 
+import dominio.Aluguel;
 import dominio.Cliente;
 import interfaces.IBancoDeDados;
 import java.io.*;
@@ -12,7 +13,26 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
     File file = new File("clientes.ser");
 
     public ClienteDb() {
-        DadosWR.carregarDados(file, clientes, "Cliente");
+        carregarDados();
+    }
+
+    public void carregarDados() {
+        if (file.exists()) {
+            try (ObjectInputStream arquivo = new ObjectInputStream(new FileInputStream(file))) {
+                clientes = (List<Cliente>) arquivo.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void salvarDados() {
+        try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
+            arquivo.writeObject(file);
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar os dados: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -23,7 +43,7 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
             }
         }
         clientes.add(cliente);
-        DadosWR.salvarDados(file, clientes);
+        salvarDados();
         return true;
     }
 
@@ -32,7 +52,7 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
         for (Cliente a : clientes) {
             if (a.getNome().equals(cliente.getNome())) {
                 clientes.set(clientes.indexOf(a), cliente);
-                DadosWR.salvarDados(file, clientes);
+                salvarDados();
                 return true;
             }
         }
@@ -56,7 +76,7 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
             Cliente cliente = iterator.next();
             if (cliente.getNome().toLowerCase().contains(valor.toLowerCase())) {
                 iterator.remove();
-                DadosWR.salvarDados(file, clientes);
+                salvarDados();
                 return true;
             }
         }

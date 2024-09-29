@@ -21,7 +21,7 @@ public class GerenciadorV {
             System.out.println("2 - Alterar Agência");
             System.out.println("3 - Buscar Agência por Nome");
             System.out.println("4 - Deletar Agência");
-            System.out.println("5 - Voltar ao menu principal");
+            System.out.println("0 - Voltar ao menu principal");
             System.out.print("Opção: ");
 
             int opcao = scanner.nextInt();
@@ -40,7 +40,7 @@ public class GerenciadorV {
                 case 4:
                     deletarAgencia(agenciaDb, scanner);
                     break;
-                case 5:
+                case 0:
                     continuar = false;
                     break;
                 default:
@@ -128,7 +128,7 @@ public class GerenciadorV {
             System.out.println("3 - Buscar Veiculo");
             System.out.println("4 - Deletar Veiculo");
             System.out.println("5 - Listar Veiculo");
-            System.out.println("6 - Voltar ao menu principal");
+            System.out.println("0 - Voltar ao menu principal");
             System.out.println("Opção: ");
 
             int opcao = scanner.nextInt();
@@ -150,7 +150,7 @@ public class GerenciadorV {
                     break;
                 case 5:
                     listarVeiculos(veiculoDb);
-                case 6:
+                case 0:
                     continuar = false;
                     break;
                 default:

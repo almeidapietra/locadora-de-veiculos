@@ -1,5 +1,6 @@
 package db;
 
+import dominio.Cliente;
 import dominio.Veiculo;
 import interfaces.IBancoDeDados;
 import java.io.*;
@@ -13,7 +14,26 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
     File file = new File("veiculos.ser");
 
     public VeiculoDb() {
-        DadosWR.carregarDados(file, veiculos, "Veiculo");
+        carregarDados();
+    }
+
+    public void carregarDados() {
+        if (file.exists()) {
+            try (ObjectInputStream arquivo = new ObjectInputStream(new FileInputStream(file))) {
+                veiculos = (List<Veiculo>) arquivo.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void salvarDados() {
+        try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
+            arquivo.writeObject(file);
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar os dados: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -23,9 +43,9 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
         return false;
     } else {
         veiculos.add(veiculo);
-            DadosWR.salvarDados(file, veiculos);
-            System.out.println("Veículo cadastrado com sucesso!");
-            return true;
+        salvarDados();
+        System.out.println("Veículo cadastrado com sucesso!");
+        return true;
         }
     }
 
@@ -35,7 +55,7 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
             if (veiculos.get(i).getPlaca().equals(veiculo.getPlaca())) {
                 veiculos.set(i, veiculo);
                 System.out.println("Veículo alterado com sucesso!");
-                DadosWR.salvarDados(file, veiculos);
+                salvarDados();
                 return true;
             }
         }
@@ -61,7 +81,7 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
         Veiculo veiculo = iterator.next();
             if (veiculo.getPlaca().equalsIgnoreCase(valor)) {
                 iterator.remove();
-                DadosWR.salvarDados(file, veiculos);
+                salvarDados();
                 return true;
             }
         }

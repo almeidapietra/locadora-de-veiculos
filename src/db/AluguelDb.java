@@ -1,5 +1,6 @@
 package db;
 
+import dominio.Agencia;
 import dominio.Aluguel;
 import dominio.Cliente;
 import dominio.Veiculo;
@@ -19,7 +20,26 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
 
     public AluguelDb(List<Veiculo> veiculos) {
         this.veiculos = veiculos;
-        DadosWR.carregarDados(file, alugueis, "Aluguel");
+        carregarDados();
+    }
+
+    public void carregarDados() {
+        if (file.exists()) {
+            try (ObjectInputStream arquivo = new ObjectInputStream(new FileInputStream(file))) {
+                alugueis = (List<Aluguel>) arquivo.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void salvarDados() {
+        try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
+            arquivo.writeObject(file);
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar os dados: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -31,7 +51,7 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
             }
         }
         alugueis.add(aluguel);
-        DadosWR.salvarDados(file, alugueis);
+        salvarDados();
         return true;
     }
 
@@ -40,7 +60,7 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
         for (int i = 0; i < alugueis.size(); i++) {
             if (alugueis.get(i).getId().equals(aluguel.getId())) {
                 alugueis.set(i, aluguel);
-                DadosWR.salvarDados(file, alugueis);
+                salvarDados();
                 return true;
             }
         }
@@ -64,7 +84,7 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
         for (int i = 0; i < alugueis.size(); i++) {
             if (alugueis.get(i).getId().equals(id)) {
                 alugueis.remove(i);
-                DadosWR.salvarDados(file, alugueis);
+                salvarDados();
                 return true;
             }
         }
