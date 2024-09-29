@@ -124,9 +124,100 @@ public class GerenciadorV {
         }
     }
 
-    public void gerenciarAlugueis(AluguelDb aluguelDb, Scanner scanner, List<Veiculo> veiculos) {
-        // Falta Implementar
+    public void gerenciarAlugueis(AluguelDb aluguelDb, ClienteDb clienteDb, VeiculoDb veiculoDb, Scanner scanner)  {
+        boolean continuar = true;
+
+        while (continuar) {
+            System.out.println("[Gerenciamento de Aluguéis]");
+            System.out.println("1 - Cadastrar Aluguel");
+            System.out.println("2 - Listar Aluguéis");
+            System.out.println("3 - Devolver Aluguel");
+            System.out.println("0 - Voltar ao menu principal");
+            System.out.print("Opção: ");
+
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    cadastrarAluguel(aluguelDb, clienteDb, veiculoDb, scanner);
+                    break;
+                case 2:
+                    listarAlugueis(aluguelDb);
+                    break;
+                case 3:
+                    devolverAluguel(aluguelDb, scanner);
+                    break;
+                case 0:
+                    continuar = false;
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+            System.out.println();
+        }
     }
+
+    private void cadastrarAluguel(AluguelDb aluguelDb, ClienteDb clienteDb, VeiculoDb veiculoDb, Scanner scanner) {
+        System.out.print("Digite o CPF do cliente: ");
+        String cpf = scanner.nextLine();
+        Cliente cliente = clienteDb.buscar(cpf);
+
+        if (cliente == null) {
+            System.out.println("Cliente não encontrado.");
+            return;
+        }
+
+        System.out.print("Digite a placa do veículo: ");
+        String placa = scanner.nextLine();
+        Veiculo veiculo = veiculoDb.buscar(placa);
+
+        if (veiculo == null || !veiculo.isDisponivel()) {
+            System.out.println("Veículo não disponível.");
+            return;
+        }
+
+        System.out.print("Digite o local de retirada: ");
+        String localRetirada = scanner.nextLine();
+        long dataInicio = System.currentTimeMillis();
+
+        Aluguel aluguel = new Aluguel(String.valueOf(aluguelDb.listar().size() + 1), veiculo, cliente, localRetirada, dataInicio);
+        if (aluguelDb.cadastrar(aluguel)) {
+            System.out.println("Aluguel cadastrado com sucesso: " + aluguel.getId());
+        } else {
+            System.out.println("Erro ao cadastrar aluguel.");
+        }
+    }
+
+    private void listarAlugueis(AluguelDb aluguelDb) {
+        List<Aluguel> alugueis = aluguelDb.listar();
+        if (alugueis.isEmpty()) {
+            System.out.println("Nenhum aluguel cadastrado.");
+        } else {
+            System.out.println("Aluguéis cadastrados:");
+            for (Aluguel aluguel : alugueis) {
+                System.out.println("ID: " + aluguel.getId() + ", Cliente: " + aluguel.getCliente().getNome() + ", Veículo: " + aluguel.getVeiculo().getModelo());
+            }
+        }
+    }
+
+    private void devolverAluguel(AluguelDb aluguelDb, Scanner scanner) {
+        System.out.print("Digite o ID do aluguel a ser devolvido: ");
+        String id = scanner.nextLine();
+        Aluguel aluguel = aluguelDb.buscar(id);
+
+        if (aluguel == null || !aluguel.isAtivo()) {
+            System.out.println("Aluguel não encontrado ou já devolvido.");
+            return;
+        }
+
+        System.out.print("Digite o local de devolução: ");
+        String localDevolucao = scanner.nextLine();
+        long dataFim = System.currentTimeMillis();
+
+        aluguelDb.devolverVeiculo(aluguel.getCliente(), aluguel.getVeiculo(), localDevolucao, dataFim);
+    }
+
 
     public void gerenciarClientes(ClienteDb clienteDb, Scanner scanner) {
         // Falta Implementar
