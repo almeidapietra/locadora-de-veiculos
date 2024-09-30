@@ -1,8 +1,6 @@
 package db;
 
-import dominio.Aluguel;
-import dominio.Cliente;
-import dominio.Veiculo;
+import dominio.*;
 import interfaces.IBancoDeDados;
 import java.io.*;
 import java.util.ArrayList;
@@ -27,20 +25,20 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
     @Override
     public boolean cadastrar(Cliente cliente) {
         for (Cliente a : clientes) {
-            if (a.getNome().equals(cliente.getNome()) && a.getCpf().equals(cliente.getCpf())) {
+            if (a.getNome().equals(cliente.getNome())) {
                 return false;
             }
         }
-        clientes.add(cliente);
-        salvarDados();
-        return true;
+            clientes.add(cliente);
+            salvarDados();
+            return true;
     }
 
     @Override
-    public boolean alterar(Cliente cliente) {
+    public boolean alterar(Cliente entidade) {
         for (Cliente a : clientes) {
-            if (a.getNome().equals(cliente.getNome())) {
-                clientes.set(clientes.indexOf(a), cliente);
+            if (a.getNome().equals(entidade.getNome())) {
+                clientes.set(clientes.indexOf(a), entidade);
                 salvarDados();
                 return true;
             }
@@ -70,6 +68,5 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
             }
         }
         throw new IllegalArgumentException("Erro ao excluir! Cliente não foi encontrado.");
-
     }
 }
