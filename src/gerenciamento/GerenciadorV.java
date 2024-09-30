@@ -184,7 +184,7 @@ public class GerenciadorV {
         Aluguel aluguel = new Aluguel(String.valueOf(aluguelDb.listar().size() + 1), veiculo, cliente, localRetirada, dataInicio);
         if (aluguelDb.cadastrar(aluguel)) {
             System.out.println("Aluguel cadastrado com sucesso!");
-            System.out.println("Comprovante: ID: " + aluguel.getId() + ", Cliente: " + aluguel.getCliente().getNome() +
+            System.out.println("COMPROVANTE DE ALUGUEL ID: " + aluguel.getId() + ", Cliente: " + aluguel.getCliente().getNome() +
                     ", Veículo: " + aluguel.getVeiculo().getModelo() +
                     ", Local de Retirada: " +  aluguel.getLocalRetirada()  +
                     ", Data inicio do aluguel: " +  aluguel.DataInicioFormatado());
@@ -220,7 +220,7 @@ public class GerenciadorV {
         long dataFim = System.currentTimeMillis();
 
         aluguelDb.devolverVeiculo(aluguel.getCliente(), aluguel.getVeiculo(), localDevolucao, dataFim);
-        System.out.println("Comprovante de devolução: ID: " + aluguel.getId() + ", Cliente: " + aluguel.getCliente().getNome() +
+        System.out.println("COMPROVANTE DE DEVOLUÇÃO ID: " + aluguel.getId() + ", Cliente: " + aluguel.getCliente().getNome() +
                 ", Veículo: " + aluguel.getVeiculo().getModelo() +
                 ", Local de Retirada: " +  aluguel.getLocalRetirada()  +
                 ", Local de Devolução: " +  aluguel.getLocalDevolucao()  +
@@ -238,6 +238,7 @@ public class GerenciadorV {
             System.out.println("2 - Alterar Cliente");
             System.out.println("3 - Buscar Cliente");
             System.out.println("4 - Deletar Cliente");
+            System.out.println("5 - Listar Cliente");
             System.out.println("0 - Voltar ao menu principal");
             System.out.println("Opção: ");
             int opcao = scanner.nextInt();
@@ -255,11 +256,26 @@ public class GerenciadorV {
                 case 4:
                     this.deletarCliente(clienteDb, scanner);
                     break;
+                case 5:
+                    this.listarClientes(clienteDb);
+                    break;
                 case 0:
                     continuar = false;
                     break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+
+    private void listarClientes(ClienteDb clienteDb) {
+        List<Cliente> clientes = clienteDb.listar();
+        if (clientes.isEmpty()) {
+            System.out.println("Nenhum veículo cadastrado.");
+        } else {
+            System.out.println("Veículos cadastrados:");
+            for (Cliente cliente : clientes) {
+                System.out.println("Nome: " + cliente.getNome() + ", Endereço: " + cliente.getLogradouro());
             }
         }
     }

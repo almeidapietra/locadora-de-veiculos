@@ -159,19 +159,23 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
 
     this.salvarDados();
     System.out.println("Veículo devolvido com sucesso: " + aluguel.getId());
-}
+    }
 
-public boolean isVeiculoDisponivel(Veiculo veiculo) {
-    Iterator<Aluguel> var2 = this.alugueis.iterator();
-    Aluguel aluguel;
+    public boolean isVeiculoDisponivel(Veiculo veiculo) {
+        Iterator<Aluguel> var2 = this.alugueis.iterator();
+        Aluguel aluguel;
 
-    do {
-        if (!var2.hasNext()) {
-            return true;
-        }
-        aluguel = var2.next();
-    } while (!aluguel.getVeiculo().equals(veiculo) || aluguel.isDevolvido());
+        do {
+            if (!var2.hasNext()) {
+                return true;
+            }
+            aluguel = var2.next();
+        } while (!aluguel.getVeiculo().equals(veiculo) || aluguel.isDevolvido());
 
-    return false;
-}
+        return false;
+    }
+
+
+
+
 }

@@ -69,4 +69,8 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
         }
         throw new IllegalArgumentException("Erro ao excluir! Cliente não foi encontrado.");
     }
+
+    public List<Cliente> listar() {
+        return new ArrayList<>(clientes);
+    }
 }
