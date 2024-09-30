@@ -261,7 +261,7 @@ public class GerenciadorV {
         String logradouro = scanner.nextLine();
         System.out.println("O cliente é uma pessoa física ou jurídica? (F/J): ");
         String tipo = scanner.nextLine();
-        Object cliente;
+        Cliente cliente;
         String cnpj;
         if (tipo.equalsIgnoreCase("F")) {
             System.out.println("Digite o CPF (somente números): ");
@@ -278,9 +278,9 @@ public class GerenciadorV {
             cliente = new ClientePessoaJuridica(cnpj);
         }
 
-        ((Cliente)cliente).setNome(nome);
-        ((Cliente)cliente).setLogradouro(logradouro);
-        boolean sucesso = clienteDb.cadastrar((Cliente)cliente);
+        cliente.setNome(nome);
+        cliente.setLogradouro(logradouro);
+        boolean sucesso = clienteDb.cadastrar(cliente);
         System.out.println(sucesso ? "Cliente cadastrado com sucesso! " : "Erro: Cliente já cadastrado");
     }
 
