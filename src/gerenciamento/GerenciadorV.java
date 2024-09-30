@@ -4,10 +4,8 @@ import db.AgenciaDb;
 import db.AluguelDb;
 import db.ClienteDb;
 import db.VeiculoDb;
-import dominio.Agencia;
-import dominio.Cliente;
-import dominio.Veiculo;
-import dominio.Aluguel;
+import dominio.*;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -222,7 +220,120 @@ public class GerenciadorV {
 
 
     public void gerenciarClientes(ClienteDb clienteDb, Scanner scanner) {
-        // Falta Implementar
+        for(boolean continuar = true; continuar; System.out.println()) {
+            System.out.println("[Gerenciamento de Clientes]");
+            System.out.println();
+            System.out.println("1 - Cadastrar Cliente");
+            System.out.println("2 - Alterar Cliente");
+            System.out.println("3 - Buscar Cliente");
+            System.out.println("4 - Deletar Cliente");
+            System.out.println("0 - Voltar ao menu principal");
+            System.out.println("Opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+            switch (opcao) {
+                case 1:
+                    this.cadastrarCliente(clienteDb, scanner);
+                    break;
+                case 2:
+                    this.alterarCliente(clienteDb, scanner);
+                    break;
+                case 3:
+                    this.buscarCliente(clienteDb, scanner);
+                    break;
+                case 4:
+                    this.deletarCliente(clienteDb, scanner);
+                    break;
+                case 0:
+                    continuar = false;
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+
+    }
+
+    public void cadastrarCliente(ClienteDb clienteDb, Scanner scanner) {
+        System.out.println("Digite seu nome completo: ");
+        String nome = scanner.nextLine();
+        System.out.println("Logradouro: ");
+        String logradouro = scanner.nextLine();
+        System.out.println("O cliente é uma pessoa física ou jurídica? (F/J): ");
+        String tipo = scanner.nextLine();
+        Object cliente;
+        String cnpj;
+        if (tipo.equalsIgnoreCase("F")) {
+            System.out.println("Digite o CPF (somente números): ");
+            cnpj = scanner.nextLine();
+            cliente = new ClientePessoaFisica(cnpj);
+        } else {
+            if (!tipo.equalsIgnoreCase("J")) {
+                System.out.println("Tipo inválido.");
+                return;
+            }
+
+            System.out.println("Digite o CNPJ (somente números): ");
+            cnpj = scanner.nextLine();
+            cliente = new ClientePessoaJuridica(cnpj);
+        }
+
+        ((Cliente)cliente).setNome(nome);
+        ((Cliente)cliente).setLogradouro(logradouro);
+        boolean sucesso = clienteDb.cadastrar((Cliente)cliente);
+        System.out.println(sucesso ? "Cliente cadastrado com sucesso! " : "Erro: Cliente já cadastrado");
+    }
+
+    public void alterarCliente(ClienteDb clienteDb, Scanner scanner) {
+        System.out.println("Informe o nome completo do cliente a ser alterado: ");
+        String nome = scanner.nextLine();
+        Cliente cliente = clienteDb.buscar(nome);
+        if (cliente == null) {
+            System.out.println("Cliente não encontrado.");
+        } else {
+            System.out.println("Informe o novo nome: ");
+            String novoNome = scanner.nextLine();
+            cliente.setNome(novoNome);
+            String novoCnpj;
+            if (cliente instanceof ClientePessoaFisica) {
+                System.out.println("Informe o novo CPF: ");
+                novoCnpj = scanner.nextLine();
+                ((ClientePessoaFisica)cliente).setCpf(novoCnpj);
+            } else if (cliente instanceof ClientePessoaJuridica) {
+                System.out.println("Informe o novo CNPJ: ");
+                novoCnpj = scanner.nextLine();
+                ((ClientePessoaJuridica)cliente).setCnpj(novoCnpj);
+            }
+
+            boolean sucesso = clienteDb.alterar(cliente);
+            System.out.println(sucesso ? "Cliente alterado com sucesso!" : "Erro ao alterar cliente");
+        }
+    }
+
+    public void buscarCliente(ClienteDb clienteDb, Scanner scanner) {
+        System.out.println("Informe o nome do cliente: ");
+        String nome = scanner.nextLine();
+        Cliente cliente = clienteDb.buscar(nome);
+        if (cliente != null) {
+            System.out.println("Cliente encontrado: ");
+            System.out.println("Nome: " + cliente.getNome());
+            System.out.println("Logradouro: " + cliente.getLogradouro());
+            if (cliente instanceof ClientePessoaFisica) {
+                System.out.println("CPF: " + ((ClientePessoaFisica)cliente).getCpf());
+            } else if (cliente instanceof ClientePessoaJuridica) {
+                System.out.println("CNPJ: " + ((ClientePessoaJuridica)cliente).getCnpj());
+            }
+        } else {
+            System.out.println("Cliente não encontrado.");
+        }
+
+    }
+
+    public void deletarCliente(ClienteDb clienteDb, Scanner scanner) {
+        System.out.println("Digite o nome do cliente a ser deletado: ");
+        String nome = scanner.nextLine();
+        boolean sucesso = clienteDb.deletar(nome);
+        System.out.println(sucesso ? "Cliente deletado com sucesso. " : "Cliente não encontrado.");
     }
 
     public void gerenciarVeiculos(VeiculoDb veiculoDb, Scanner scanner) {
