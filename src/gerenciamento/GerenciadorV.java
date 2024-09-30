@@ -5,6 +5,7 @@ import db.AluguelDb;
 import db.ClienteDb;
 import db.VeiculoDb;
 import dominio.Agencia;
+import dominio.Cliente;
 import dominio.Veiculo;
 import dominio.Aluguel;
 import java.util.List;

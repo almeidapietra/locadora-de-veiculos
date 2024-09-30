@@ -28,7 +28,7 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
 
     public void salvarDados() {
         try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
-            arquivo.writeObject(file);
+            arquivo.writeObject(clientes);
         } catch (IOException e) {
             System.err.println("Erro ao salvar os dados: " + e.getMessage());
             e.printStackTrace();
@@ -56,7 +56,7 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
                 return true;
             }
         }
-        throw new IllegalArgumentException("Erro! Cliente n�o encontrado.");
+        throw new IllegalArgumentException("Erro! Cliente não encontrado.");
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ClienteDb implements IBancoDeDados<Cliente> {
                 return true;
             }
         }
-        throw new IllegalArgumentException("Erro ao excluir! Cliente n�o foi encontrado.");
+        throw new IllegalArgumentException("Erro ao excluir! Cliente não foi encontrado.");
 
     }
 }

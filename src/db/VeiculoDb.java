@@ -29,7 +29,7 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
 
     public void salvarDados() {
         try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
-            arquivo.writeObject(file);
+            arquivo.writeObject(veiculos);
         } catch (IOException e) {
             System.err.println("Erro ao salvar os dados: " + e.getMessage());
             e.printStackTrace();
