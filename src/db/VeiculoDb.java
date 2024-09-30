@@ -51,7 +51,7 @@ public class VeiculoDb implements IBancoDeDados<Veiculo> {
     @Override
     public Veiculo buscar(String valor) {
         for (Veiculo v : veiculos) {
-            if (v.getPlaca().equals(valor)) {
+            if (v.getModelo().toLowerCase().contains(valor.toLowerCase())) {
                 return v;
             }
         }

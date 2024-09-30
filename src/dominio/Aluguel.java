@@ -1,5 +1,9 @@
 package dominio;
 import java.io.Serializable;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class Aluguel implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -44,12 +48,26 @@ public class Aluguel implements Serializable {
         return localDevolucao;
     }
 
-    public long getDataInicio() {
-        return dataInicio;
+    public Long getDataInicio() { return dataInicio; }
+
+    public String DataInicioFormatado() {
+        Instant instant = Instant.ofEpochMilli(dataInicio);
+        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String formattedDate = dateTime.format(formatter);
+        return formattedDate;
     }
 
     public long getDataFim() {
         return dataFim;
+    }
+
+    public String DataFimFormatado() {
+        Instant instant = Instant.ofEpochMilli(dataFim);
+        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String formattedDate = dateTime.format(formatter);
+        return formattedDate;
     }
 
     public boolean isAtivo() {
