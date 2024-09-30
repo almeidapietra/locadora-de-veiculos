@@ -184,10 +184,7 @@ public class GerenciadorV {
         Aluguel aluguel = new Aluguel(String.valueOf(aluguelDb.listar().size() + 1), veiculo, cliente, localRetirada, dataInicio);
         if (aluguelDb.cadastrar(aluguel)) {
             System.out.println("Aluguel cadastrado com sucesso!");
-            System.out.println("COMPROVANTE DE ALUGUEL ID: " + aluguel.getId() + ", Cliente: " + aluguel.getCliente().getNome() +
-                    ", Veículo: " + aluguel.getVeiculo().getModelo() +
-                    ", Local de Retirada: " +  aluguel.getLocalRetirada()  +
-                    ", Data inicio do aluguel: " +  aluguel.DataInicioFormatado());
+            comprovanteAluguel(aluguel);
         } else {
             System.out.println("Erro ao cadastrar aluguel.");
         }
@@ -205,6 +202,18 @@ public class GerenciadorV {
         }
     }
 
+    public static void comprovanteAluguel(Aluguel aluguel) {
+        System.out.println("====================================");
+        System.out.println("          COMPROVANTE DE ALUGUEL");
+        System.out.println("====================================");
+        System.out.println("ID do Aluguel: " + aluguel.getId());
+        System.out.println("Cliente: " + aluguel.getCliente().getNome());
+        System.out.println("Veículo: " + aluguel.getVeiculo().getModelo());
+        System.out.println("Local de Retirada: " + aluguel.getLocalRetirada());
+        System.out.println("Data de Início do Aluguel: " + aluguel.DataInicioFormatado());
+        System.out.println("====================================");
+    }
+
     private void devolverAluguel(AluguelDb aluguelDb, Scanner scanner) {
         System.out.print("Digite o ID do aluguel a ser devolvido: ");
         String id = scanner.nextLine();
@@ -220,13 +229,22 @@ public class GerenciadorV {
         long dataFim = System.currentTimeMillis();
 
         aluguelDb.devolverVeiculo(aluguel.getCliente(), aluguel.getVeiculo(), localDevolucao, dataFim);
-        System.out.println("COMPROVANTE DE DEVOLUÇÃO ID: " + aluguel.getId() + ", Cliente: " + aluguel.getCliente().getNome() +
-                ", Veículo: " + aluguel.getVeiculo().getModelo() +
-                ", Local de Retirada: " +  aluguel.getLocalRetirada()  +
-                ", Local de Devolução: " +  aluguel.getLocalDevolucao()  +
-                ", Data inicio do aluguel: " +  aluguel.DataInicioFormatado() +
-                ", Data inicio do aluguel: " +  aluguel.DataFimFormatado() +
-                ", Devolvido: " + aluguel.isDevolvido());
+        comprovanteDevolucao(aluguel);
+    }
+
+    public static void comprovanteDevolucao(Aluguel aluguel) {
+        System.out.println("====================================");
+        System.out.println("       COMPROVANTE DE DEVOLUÇÃO");
+        System.out.println("====================================");
+        System.out.println("ID do Aluguel: " + aluguel.getId());
+        System.out.println("Cliente: " + aluguel.getCliente().getNome());
+        System.out.println("Veículo: " + aluguel.getVeiculo().getModelo());
+        System.out.println("Local de Retirada: " + aluguel.getLocalRetirada());
+        System.out.println("Local de Devolução: " + aluguel.getLocalDevolucao());
+        System.out.println("Data de Início do Aluguel: " + aluguel.DataInicioFormatado());
+        System.out.println("Data de Fim do Aluguel: " + aluguel.DataFimFormatado());
+        System.out.println("Devolvido: " + (aluguel.isDevolvido() ? "Sim" : "Não"));
+        System.out.println("====================================");
     }
 
 
