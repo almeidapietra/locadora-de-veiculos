@@ -108,55 +108,72 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
 
 
     @Override
-    public void devolverVeiculo(Cliente cliente, Veiculo veiculo, String localDevolucao, long dataFim) {
-        for (Aluguel aluguel : alugueis) {
-            // Encontrar o aluguel ativo que corresponde ao cliente e veículo
-            if (aluguel.getCliente().equals(cliente) && aluguel.getVeiculo().equals(veiculo) && aluguel.isAtivo()) {
-                // Configurar os dados de devolução
-                aluguel.setLocalDevolucao(localDevolucao);
-                aluguel.setDataFim(dataFim);
+   public void devolverVeiculo(Cliente cliente, Veiculo veiculo, String localDevolucao, long dataFim) {
+    Iterator<Aluguel> var6 = this.alugueis.iterator();
+    Aluguel aluguel;
 
-                // Cálculo da duração do aluguel em dias
-                long duracao = (dataFim - aluguel.getDataInicio()) / (1000 * 60 * 60 * 24);
-                double desconto = 0;
-
-                // Verificar se é cliente pessoa física
-                if (cliente instanceof Cliente.ClientePessoaFisica && duracao > 5) {
-                    desconto = 0.05; // 5% de desconto
-                    System.out.println("Desconto de 5% aplicado para pessoa física.");
-                }
-
-                // Verificar se é cliente pessoa jurídica
-                if (cliente instanceof Cliente.ClientePessoaJuridica && duracao > 3) {
-                    desconto = 0.10; // 10% de desconto
-                    System.out.println("Desconto de 10% aplicado para pessoa jurídica.");
-                }
-
-                // Exibir informações sobre o desconto
-                if (desconto > 0) {
-                    System.out.printf("Desconto: %.2f%%\n", desconto * 100);
-                } else {
-                    System.out.println("Nenhum desconto aplicável.");
-                }
-
-                // Salvar os dados após a devolução
-                salvarDados();
-                System.out.println("Veículo devolvido com sucesso: " + aluguel.getId());
-                return; // Sai do método após a devolução
-            }
+    do {
+        if (!var6.hasNext()) {
+            System.out.println("Não foi possível encontrar o aluguel ativo para devolução.");
+            return;
         }
-        // Se não encontrar o aluguel correspondente
-        System.out.println("Não foi possível encontrar o aluguel ativo para devolução.");
+        aluguel = var6.next();
+    } while (!aluguel.getCliente().equals(cliente) || !aluguel.getVeiculo().equals(veiculo) || !aluguel.isAtivo());
+
+    aluguel.setLocalDevolucao(localDevolucao);
+    aluguel.setDataFim(dataFim);
+    long duracao = (dataFim - aluguel.getDataInicio()) / 86400000L; // Duração em dias
+    double desconto = 0.0;
+
+    // Cálculo do valor da diária
+    double valorDiaria = 0.0;
+    if (veiculo instanceof Moto) {
+        valorDiaria = 100.0;
+    } else if (veiculo instanceof Carro) {
+        valorDiaria = 150.0;
+    } else if (veiculo instanceof Caminhao) {
+        valorDiaria = 200.0;
     }
 
+    // Cálculo do valor total
+    double valorTotal = valorDiaria * duracao;
+    System.out.printf("Valor total a pagar: R$ %.2f\n", valorTotal);
 
-
-    public boolean isVeiculoDisponivel(Veiculo veiculo) {
-        for (Aluguel aluguel : alugueis) {
-            if (aluguel.getVeiculo().equals(veiculo) && !aluguel.isDevolvido()) {
-                return false; // Veículo está alugado, então não está disponível
-            }
-        }
-        return true; // Veículo está disponível
+    // Aplicação de descontos
+    if (cliente instanceof Cliente.ClientePessoaFisica && duracao > 5L) {
+        desconto = 0.05;
+        System.out.println("Desconto de 5% aplicado para pessoa física.");
     }
+
+    if (cliente instanceof Cliente.ClientePessoaJuridica && duracao > 3L) {
+        desconto = 0.1;
+        System.out.println("Desconto de 10% aplicado para pessoa jurídica.");
+    }
+
+    if (desconto > 0.0) {
+        double valorDesconto = valorTotal * desconto;
+        valorTotal -= valorDesconto;
+        System.out.printf("Desconto: %.2f%%\n", desconto * 100.0);
+        System.out.printf("Valor total com desconto: R$ %.2f\n", valorTotal);
+    } else {
+        System.out.println("Nenhum desconto aplicável.");
+    }
+
+    this.salvarDados();
+    System.out.println("Veículo devolvido com sucesso: " + aluguel.getId());
+}
+
+public boolean isVeiculoDisponivel(Veiculo veiculo) {
+    Iterator<Aluguel> var2 = this.alugueis.iterator();
+    Aluguel aluguel;
+
+    do {
+        if (!var2.hasNext()) {
+            return true;
+        }
+        aluguel = var2.next();
+    } while (!aluguel.getVeiculo().equals(veiculo) || aluguel.isDevolvido());
+
+    return false;
+}
 }
