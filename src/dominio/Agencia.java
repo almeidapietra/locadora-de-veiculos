@@ -37,6 +37,10 @@ public class Agencia implements Serializable {
         this.endereco = endereco;
     }
 
+    public static void setUltimoId(int ultimoId) {
+        Agencia.ultimoId = ultimoId;
+    }
+
     @Override
     public String toString() {
         return "Agencia: " +

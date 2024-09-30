@@ -14,37 +14,24 @@ import java.util.List;
 public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente, Veiculo> {
     private static final long serialVersionUID = 1L;
 
-    private List<Aluguel> alugueis = new ArrayList<>();
+    private List<Aluguel> alugueis;
     private List<Veiculo> veiculos;
-    File file = new File("alugueis.ser");
+    File file;
 
     public AluguelDb(List<Veiculo> veiculos) {
         this.veiculos = veiculos;
-        carregarDados();
+        alugueis = new ArrayList<>();
+        file = new File("alugueis.ser");
+        DadosWR<Aluguel> DadosWR = new DadosWR<Aluguel>();
+        DadosWR.carregarDados(file, alugueis);
     }
 
-    public void carregarDados() {
-        if (file.exists()) {
-            try (ObjectInputStream arquivo = new ObjectInputStream(new FileInputStream(file))) {
-                alugueis = (List<Aluguel>) arquivo.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+    public void salvarDados() {
+        DadosWR.salvarDados(file, alugueis);
     }
 
     public List<Aluguel> listar() {
         return new ArrayList<>(alugueis); // Retorna uma cópia da lista de aluguéis
-    }
-
-
-    public void salvarDados() {
-        try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
-            arquivo.writeObject(alugueis);
-        } catch (IOException e) {
-            System.err.println("Erro ao salvar os dados: " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 
     @Override

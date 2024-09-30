@@ -1,6 +1,5 @@
 package db;
 
-import dominio.Cliente;
 import dominio.Veiculo;
 import interfaces.IBancoDeDados;
 import java.io.*;
@@ -10,30 +9,18 @@ import java.util.List;
 
 public class VeiculoDb implements IBancoDeDados<Veiculo> {
 
-    private List<Veiculo> veiculos = new ArrayList<>();
-    File file = new File("veiculos.ser");
+    public List<Veiculo> veiculos;
+    File file;
 
     public VeiculoDb() {
-        carregarDados();
-    }
-
-    public void carregarDados() {
-        if (file.exists()) {
-            try (ObjectInputStream arquivo = new ObjectInputStream(new FileInputStream(file))) {
-                veiculos = (List<Veiculo>) arquivo.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+        veiculos = new ArrayList<>();
+        file = new File("veiculos.ser");
+        DadosWR<Veiculo> DadosWR = new DadosWR<Veiculo>();
+        DadosWR.carregarDados(file, veiculos);
     }
 
     public void salvarDados() {
-        try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
-            arquivo.writeObject(veiculos);
-        } catch (IOException e) {
-            System.err.println("Erro ao salvar os dados: " + e.getMessage());
-            e.printStackTrace();
-        }
+        DadosWR.salvarDados(file, veiculos);
     }
 
     @Override

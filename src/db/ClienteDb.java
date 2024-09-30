@@ -2,6 +2,7 @@ package db;
 
 import dominio.Aluguel;
 import dominio.Cliente;
+import dominio.Veiculo;
 import interfaces.IBancoDeDados;
 import java.io.*;
 import java.util.ArrayList;
@@ -9,30 +10,18 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ClienteDb implements IBancoDeDados<Cliente> {
-    private List<Cliente> clientes = new ArrayList<>();
-    File file = new File("clientes.ser");
+    private List<Cliente> clientes;
+    File file;
 
     public ClienteDb() {
-        carregarDados();
-    }
-
-    public void carregarDados() {
-        if (file.exists()) {
-            try (ObjectInputStream arquivo = new ObjectInputStream(new FileInputStream(file))) {
-                clientes = (List<Cliente>) arquivo.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+        clientes = new ArrayList<>();
+        file = new File("clientes.ser");
+        DadosWR<Cliente> DadosWR = new DadosWR<Cliente>();
+        DadosWR.carregarDados(file, clientes);
     }
 
     public void salvarDados() {
-        try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
-            arquivo.writeObject(clientes);
-        } catch (IOException e) {
-            System.err.println("Erro ao salvar os dados: " + e.getMessage());
-            e.printStackTrace();
-        }
+        DadosWR.salvarDados(file, clientes);
     }
 
     @Override

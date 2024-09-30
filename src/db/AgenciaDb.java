@@ -1,36 +1,26 @@
 package db;
 
 import dominio.Agencia;
+import dominio.Veiculo;
 import interfaces.IBancoDeDados;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
 
 public class AgenciaDb implements IBancoDeDados<Agencia> {
-    private List<Agencia> agencias = new ArrayList<>();
-    File file = new File("agencia.ser");
+    private List<Agencia> agencias;
+    File file;
 
     public AgenciaDb() {
-        carregarDados();
-    }
-
-    public void carregarDados() {
-        if (file.exists()) {
-            try (ObjectInputStream arquivo = new ObjectInputStream(new FileInputStream(file))) {
-                agencias = (List<Agencia>) arquivo.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+        agencias = new ArrayList<>();
+        file = new File("agencia.ser");
+        DadosWR<Agencia> DadosWR = new DadosWR<Agencia>();
+        DadosWR.carregarDados(file, agencias);
+        Agencia.setUltimoId(agencias.size());
     }
 
     public void salvarDados() {
-        try (ObjectOutputStream arquivo = new ObjectOutputStream(new FileOutputStream(file))) {
-            arquivo.writeObject(agencias);
-        } catch (IOException e) {
-            System.err.println("Erro ao salvar os dados: " + e.getMessage());
-            e.printStackTrace();
-        }
+        DadosWR.salvarDados(file, agencias);
     }
 
     @Override
