@@ -1,15 +1,13 @@
 package db;
 
-import dominio.Agencia;
-import dominio.Aluguel;
-import dominio.Cliente;
-import dominio.Veiculo;
+import dominio.*;
 import interfaces.AluguelVeiculo;
 import interfaces.IBancoDeDados;
-
+import java.util.Iterator;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente, Veiculo> {
     private static final long serialVersionUID = 1L;
