@@ -10,6 +10,10 @@ Gerenciar Clientes
 Gerenciar Veículos
 Sair do Sistema
 
+## Diagrama de Classes
+
+<img src="./src/diagrama 1.png" alt="imagem de diagrama de classes">
+
 
 ## Uso
 
