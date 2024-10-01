@@ -106,6 +106,38 @@ Dependency Inversion Principle (Princípio da Inversão de Dependência):
 
 O sistema utiliza abstrações (interfaces) ao invés de classes concretas diretamente, promovendo a inversão de dependência. As classes dependem de interfaces como IBancoDeDados<T> ao invés de dependerem diretamente de implementações concretas.
 
+
+## Divisão de Funções:
+
+
+### 1 Veículos - Mayara
+Cadastrar, alterar, buscar veículos: Implementar funcionalidades de cadastro de veículos (carro, moto, caminhão), garantir que não sejam duplicados (RN1), e criar a busca por parte do nome.
+Regras de aluguel (RN4): Implementar a lógica para garantir que veículos alugados não apareçam como disponíveis.
+
+
+### 2 Agências - Rosangela 
+Cadastrar, alterar, buscar agências: Cuidar do gerenciamento das agências (cadastrar, alterar, buscar por nome ou endereço).
+Garantir que as agências não sejam duplicadas (RN5).
+
+
+### 3 Clientes - Gustavo Queiroz
+Cadastrar, alterar, buscar clientes (pessoa física e jurídica): Implementar as funcionalidades de cadastro e edição dos clientes, garantindo que não haja duplicados (RN6).
+Descontos para aluguéis de pessoa física e jurídica (RN7): Implementar a lógica de cálculo de desconto para devoluções de clientes. ***
+
+
+### 4 Aluguel e Devolução de Veículos - Pietra
+Alugar e devolver veículos: Criar o processo de aluguel e devolução para pessoa física e jurídica, registrando local, data e horário (RN3).
+Controle de disponibilidade dos veículos (RN4): Garantir que veículos alugados não possam ser alugados novamente enquanto não forem devolvidos.
+
+
+### 5 Relatórios - Gustavo Habib
+Gerar comprovantes: Implementar a geração dos comprovantes de aluguel e devolução, incluindo todas as informações decididas pelo grupo.
+Banco de Dados
+
+
+
+
+
 ## Integrantes:
 
 Gustavo de Queiroz 
