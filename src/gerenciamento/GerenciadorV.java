@@ -22,6 +22,8 @@ public class GerenciadorV {
             System.out.println("3 - Consultar Agência");
             System.out.println("4 - Deletar Agência");
             System.out.println("5 - Listar Agências");
+            System.out.println("6 - Exportar Relatório CSV");
+            System.out.println("7 - Importação de Agências em Massa CSV");
             System.out.println("0 - Voltar ao menu principal");
             System.out.print("Opção: ");
 
@@ -43,6 +45,12 @@ public class GerenciadorV {
                     break;
                 case 5:
                     listarAgencias(agenciaDb);
+                    break;
+                case 6:
+                    gerarRelatorioAgenciaCSV(agenciaDb);
+                    break;
+                case 7:
+                    lerAgenciasDoCSV(agenciaDb,scanner);
                     break;
                 case 0:
                     continuar = false;
@@ -122,6 +130,15 @@ public class GerenciadorV {
                 System.out.println("ID: " + agencia.getId() + ", Nome: " + agencia.getNome() + ", Endereço: " + agencia.getEndereco());
             }
         }
+    }
+    private void gerarRelatorioAgenciaCSV(AgenciaDb agenciaDb) {
+        agenciaDb.gerarRelatorioAgenciasCSV();
+    }
+
+    private void lerAgenciasDoCSV(AgenciaDb agenciaDb, Scanner scanner) {
+        System.out.print("Digite o caminho do arquivo CSV: ");
+        String caminhoArquivo = scanner.nextLine();
+        agenciaDb.lerAgenciasDoCSV(caminhoArquivo);
     }
 
     public void gerenciarAlugueis(AluguelDb aluguelDb, ClienteDb clienteDb, VeiculoDb veiculoDb, Scanner scanner)  {

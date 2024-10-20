@@ -1,11 +1,13 @@
 package db;
 
 import dominio.Agencia;
-import dominio.Veiculo;
 import interfaces.IBancoDeDados;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class AgenciaDb implements IBancoDeDados<Agencia> {
     private List<Agencia> agencias;
@@ -81,4 +83,49 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
         return new ArrayList<>(agencias);  // Vai retornar lista de agências
     }
 
+    public void gerarRelatorioAgenciasCSV() {
+        String filePath = "relatorio_agencias.csv";
+        try (FileWriter writer = new FileWriter(filePath)) {
+            writer.append("Nome da Agência, Endereço\n");
+
+            // Iterar pelas agências e escrever os dados corretamente no CSV
+            for (Agencia agencia : agencias) {
+                writer.append(agencia.getNome()).append(",")
+                        .append(agencia.getEndereco()).append("\n");
+            }
+
+            System.out.println("Relatório CSV gerado com sucesso.");
+        } catch (IOException e) {
+            System.err.println("Erro ao gerar o relatório CSV: " + e.getMessage());
+        }
+    }
+
+    public void lerAgenciasDoCSV(String caminhoArquivo) {
+        String linha = "";
+        String separador = ","; // o separador padrão é a vírgula
+
+        try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo))) {
+            while ((linha = br.readLine()) != null) {
+                String[] dadosAgencia = linha.split(separador);
+
+                if (dadosAgencia.length >= 2) {
+                    String nomeAgencia = dadosAgencia[0];
+                    String enderecoAgencia = dadosAgencia.length > 1 ? dadosAgencia[1] : "Endereço desconhecido";
+
+                    // Criar uma nova instância de Agência e adicionar à lista
+                    Agencia agencia = new Agencia(nomeAgencia, enderecoAgencia);
+                    agencias.add(agencia);
+                } else {
+                    System.out.println("Formato inválido no CSV para a linha: " + linha);
+                }
+            }
+            System.out.println("Importação do CSV concluída com sucesso!");
+        } catch (IOException e) {
+            System.out.println("Erro ao importar o arquivo CSV: " + e.getMessage());
+        }
+    }
 }
+
+
+
+

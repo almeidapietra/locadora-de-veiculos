@@ -57,7 +57,7 @@ public class Main {
 
                 case 0:
                     continuar = false;
-                    System.out.println("Saindo do sistema...");
+                    System.out.println("Sistema encerrado");
                     break;
 
                 default:
