@@ -6,6 +6,8 @@ import db.ClienteDb;
 import db.VeiculoDb;
 import dominio.*;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -50,7 +52,7 @@ public class GerenciadorV {
                     gerarRelatorioAgenciaCSV(agenciaDb);
                     break;
                 case 7:
-                    lerAgenciasDoCSV(agenciaDb,scanner);
+                    lerAgenciasDoCSV(agenciaDb, scanner);
                     break;
                 case 0:
                     continuar = false;
@@ -120,6 +122,7 @@ public class GerenciadorV {
             System.out.println(e.getMessage());  // Exibir a mensagem da exceção no console
         }
     }
+
     private void listarAgencias(AgenciaDb agenciaDb) {
         List<Agencia> agencias = agenciaDb.listar();
         if (agencias.isEmpty()) {
@@ -131,6 +134,7 @@ public class GerenciadorV {
             }
         }
     }
+
     private void gerarRelatorioAgenciaCSV(AgenciaDb agenciaDb) {
         agenciaDb.gerarRelatorioAgenciasCSV();
     }
@@ -141,7 +145,7 @@ public class GerenciadorV {
         agenciaDb.lerAgenciasDoCSV(caminhoArquivo);
     }
 
-    public void gerenciarAlugueis(AluguelDb aluguelDb, ClienteDb clienteDb, VeiculoDb veiculoDb, Scanner scanner)  {
+    public void gerenciarAlugueis(AluguelDb aluguelDb, ClienteDb clienteDb, VeiculoDb veiculoDb, Scanner scanner) {
         boolean continuar = true;
 
         while (continuar) {
@@ -266,7 +270,7 @@ public class GerenciadorV {
 
 
     public void gerenciarClientes(ClienteDb clienteDb, Scanner scanner) {
-        for(boolean continuar = true; continuar; System.out.println()) {
+        for (boolean continuar = true; continuar; System.out.println()) {
             System.out.println("[Gerenciamento de Clientes]");
             System.out.println();
             System.out.println("1 - Cadastrar Cliente");
@@ -359,11 +363,11 @@ public class GerenciadorV {
             if (cliente instanceof ClientePessoaFisica) {
                 System.out.println("Informe o novo CPF: ");
                 novoCnpj = scanner.nextLine();
-                ((ClientePessoaFisica)cliente).setCpf(novoCnpj);
+                ((ClientePessoaFisica) cliente).setCpf(novoCnpj);
             } else if (cliente instanceof ClientePessoaJuridica) {
                 System.out.println("Informe o novo CNPJ: ");
                 novoCnpj = scanner.nextLine();
-                ((ClientePessoaJuridica)cliente).setCnpj(novoCnpj);
+                ((ClientePessoaJuridica) cliente).setCnpj(novoCnpj);
             }
 
             boolean sucesso = clienteDb.alterar(cliente);
@@ -380,9 +384,9 @@ public class GerenciadorV {
             System.out.println("Nome: " + cliente.getNome());
             System.out.println("Logradouro: " + cliente.getLogradouro());
             if (cliente instanceof ClientePessoaFisica) {
-                System.out.println("CPF: " + ((ClientePessoaFisica)cliente).getCpf());
+                System.out.println("CPF: " + ((ClientePessoaFisica) cliente).getCpf());
             } else if (cliente instanceof ClientePessoaJuridica) {
-                System.out.println("CNPJ: " + ((ClientePessoaJuridica)cliente).getCnpj());
+                System.out.println("CNPJ: " + ((ClientePessoaJuridica) cliente).getCnpj());
             }
         } else {
             System.out.println("Cliente não encontrado.");
@@ -399,21 +403,22 @@ public class GerenciadorV {
 
     public void gerenciarVeiculos(VeiculoDb veiculoDb, Scanner scanner) {
         boolean continuar = true;
-
+        List<Veiculo> veiculos = new ArrayList<>();
+        List<Aluguel> alugueis = new ArrayList<>();
         while (continuar) {
             System.out.println("[Gerenciamento de Veículos]");
-            System.out.println();
-            System.out.println("1 - Cadastrar Veiculo");
-            System.out.println("2 - Alterar Veiculo");
-            System.out.println("3 - Buscar Veiculo");
-            System.out.println("4 - Deletar Veiculo");
-            System.out.println("5 - Listar Veiculo");
+            System.out.println("1 - Cadastrar Veículo");
+            System.out.println("2 - Alterar Veículo");
+            System.out.println("3 - Buscar Veículo");
+            System.out.println("4 - Deletar Veículo");
+            System.out.println("5 - Listar Veículos");
+            System.out.println("6 - Gerar Relatório Veículo CSV");
+            System.out.println("7 - Importar Veículos do CSV");
             System.out.println("0 - Voltar ao menu principal");
-            System.out.println("Opção: ");
+            System.out.print("Opção: ");
 
             int opcao = scanner.nextInt();
             scanner.nextLine();
-
 
             switch (opcao) {
                 case 1:
@@ -430,6 +435,15 @@ public class GerenciadorV {
                     break;
                 case 5:
                     listarVeiculos(veiculoDb);
+                    break;
+                case 6:
+                    gerarRelatorioVeiculoCSV(veiculoDb,alugueis);
+                    break;
+                case 7:
+                    System.out.print("Digite o caminho do arquivo CSV: ");
+                    String caminhoArquivo = scanner.nextLine();
+                    leituraDeVeiculos(veiculoDb, caminhoArquivo);
+                    break;
                 case 0:
                     continuar = false;
                     break;
@@ -504,5 +518,27 @@ public class GerenciadorV {
             }
         }
 
+    }
+
+
+    static void gerarRelatorioVeiculoCSV(VeiculoDb veiculoDb, List<Aluguel> alugueis) {
+        if (alugueis.isEmpty()) {
+            System.out.println("Nenhum aluguel encontrado para gerar o relatório.");
+            return;
+        }
+
+        veiculoDb.gerarComprovanteDevolucaoCSV(alugueis);
+
+        System.out.println("NOVO Comprovante de devolução gerado com sucesso!");
+    }
+
+    private void leituraDeVeiculos(VeiculoDb veiculoDb, String caminhoArquivo) {
+        try {
+            veiculoDb.lerComprovantesDoCSV(caminhoArquivo);
+            System.out.println("Veículos importados com sucesso do arquivo: " + caminhoArquivo);
+        } catch (Exception e) {
+            System.err.println("Erro ao importar veículos: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 }

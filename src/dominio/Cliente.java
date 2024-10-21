@@ -9,6 +9,9 @@ public class Cliente implements Serializable {
     private String nome;
     private String logradouro ;
 
+    //public Cliente(String nomeCliente) {
+   // }
+
 
     public String getNome() {
         return nome;

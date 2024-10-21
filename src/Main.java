@@ -2,6 +2,7 @@ import db.AgenciaDb;
 import db.AluguelDb;
 import db.ClienteDb;
 import db.VeiculoDb;
+import dominio.Aluguel;
 import dominio.Veiculo;
 import dominio.Cliente;
 import gerenciamento.GerenciadorV;
@@ -15,9 +16,10 @@ public class Main {
 
         AgenciaDb agenciaDb = new AgenciaDb();
         List<Veiculo> veiculos = new ArrayList<>();
+        List<Aluguel> alugueis = new ArrayList<>();
         AluguelDb aluguelDb = new AluguelDb(veiculos);
         ClienteDb clienteDb = new ClienteDb();
-        VeiculoDb veiculoDb = new VeiculoDb();
+        VeiculoDb veiculoDb = new VeiculoDb(alugueis);
 
         GerenciadorV gerenciadorV = new GerenciadorV();
         Scanner scanner = new Scanner(System.in);
@@ -52,7 +54,7 @@ public class Main {
                     break;
 
                 case 4:
-                    gerenciadorV.gerenciarVeiculos(veiculoDb, scanner);
+                    gerenciadorV.gerenciarVeiculos(veiculoDb,scanner);
                     break;
 
                 case 0:
