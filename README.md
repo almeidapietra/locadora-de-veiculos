@@ -107,7 +107,7 @@ Dependency Inversion Principle (Princípio da Inversão de Dependência):
 O sistema utiliza abstrações (interfaces) ao invés de classes concretas diretamente, promovendo a inversão de dependência. As classes dependem de interfaces como IBancoDeDados<T> ao invés de dependerem diretamente de implementações concretas.
 
 
-## Divisão de Funções:
+## Divisão de Funções :
 
 
 ### 1 Veículos - Mayara
@@ -134,7 +134,16 @@ Controle de disponibilidade dos veículos (RN4): Garantir que veículos alugados
 Gerar comprovantes: Implementar a geração dos comprovantes de aluguel e devolução, incluindo todas as informações decididas pelo grupo.
 Banco de Dados
 
+## Divisão de Funções Implementadas entregues ao final do MÓDULO IV:
 
+### 1. Relatório de Aluguéis Mensais - Pietra
+- **Função**: Gera um arquivo CSV com as colunas: ID do Aluguel, Cliente, Veículo, Data Início, Data Fim.
+
+### 2. Comprovante de Devolução de Veículo - Mayara
+- **Função**: Gera um arquivo CSV com as colunas: ID do Aluguel, Cliente, Veículo, Local de Retirada, Local de Devolução, Data Início, Data Fim, Valor Total.
+
+### 3. Relatório de Agências - Rosângela
+- **Função**: Gera um arquivo CSV com as colunas: Nome, Endereço, Quantos Aluguéis, Receita Gerada, entre outros.
 
 
 
