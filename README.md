@@ -143,7 +143,7 @@ Banco de Dados
 - **Função**: Gera um arquivo CSV com as colunas: ID do Aluguel, Cliente, Veículo, Local de Retirada, Local de Devolução, Data Início, Data Fim, Valor Total.
 
 ### 3. Relatório de Agências - Rosângela
-- **Função**: Gera um arquivo CSV com as colunas: Nome, Endereço, Quantos Aluguéis, Receita Gerada, entre outros.
+- **Função**: Lê, importa e exporta um arquivo CSV com as colunas: Nome, Endereço,
 
 
 
