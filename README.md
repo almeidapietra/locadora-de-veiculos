@@ -149,16 +149,16 @@ Banco de Dados
 
 ## Integrantes:
 
-Gustavo de Queiroz 
+Gustavo de Queiroz (módulo III)
 
 
-Gustavo Habib
+Gustavo Habib (módulo III)
 
 
-Mayara Santos
+Mayara Santos (Módulos I, III e IV)
 
 
-Pietra Almeida
+Pietra Almeida (Módulos I, III e IV)
 
 
-Rosângela Batista
+Rosângela Batista (Módulos I, III e IV)
