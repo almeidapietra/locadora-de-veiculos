@@ -175,7 +175,31 @@ public class AluguelDb implements IBancoDeDados<Aluguel>, AluguelVeiculo<Cliente
         return false;
     }
 
+    public void gerarRelatorioAlugueisCSV(String periodo) {
+        String filePath = "relatorio_alugueis_" + periodo + ".csv";
+        try (FileWriter writer = new FileWriter(filePath)) {
+            // Cabeçalho do CSV
+            writer.append("ID do Aluguel, Cliente, Veículo, Data Início, Data Fim\n");
 
+            // Iterar pelos aluguéis e escrever os dados no CSV
+            for (Aluguel aluguel : alugueis) {
+                writer.append(aluguel.getId()).append(",")
+                        .append(aluguel.getCliente().getNome()).append(",")
+                        .append(aluguel.getVeiculo().getModelo()).append(",")
+                        .append(String.valueOf(aluguel.getDataInicio())).append(",");
 
+                if (aluguel.getDataFim() != 0) {
+                    writer.append(String.valueOf(aluguel.getDataFim()));
+                } else {
+                    writer.append("Ainda em andamento");
+                }
 
+                writer.append("\n");
+            }
+
+            System.out.println("Relatório CSV de aluguéis gerado com sucesso.");
+        } catch (IOException e) {
+            System.err.println("Erro ao gerar o relatório CSV: " + e.getMessage());
+        }
+    }
 }

@@ -153,6 +153,7 @@ public class GerenciadorV {
             System.out.println("1 - Cadastrar Aluguel");
             System.out.println("2 - Listar Aluguéis");
             System.out.println("3 - Devolver Aluguel");
+            System.out.println("4 - Gerar Relatório CSV");
             System.out.println("0 - Voltar ao menu principal");
             System.out.print("Opção: ");
 
@@ -169,6 +170,9 @@ public class GerenciadorV {
                 case 3:
                     devolverAluguel(aluguelDb, scanner);
                     break;
+                case 4:
+                    gerarRelatorioCSV(aluguelDb, scanner);
+                    break;
                 case 0:
                     continuar = false;
                     break;
@@ -179,6 +183,11 @@ public class GerenciadorV {
         }
     }
 
+    private void gerarRelatorioCSV(AluguelDb aluguelDb, Scanner scanner) {
+        System.out.print("Digite o período para o relatório (ex: 2024-10): ");
+        String periodo = scanner.nextLine();
+        aluguelDb.gerarRelatorioAlugueisCSV(periodo);
+    }
     private void cadastrarAluguel(AluguelDb aluguelDb, ClienteDb clienteDb, VeiculoDb veiculoDb, Scanner scanner) {
         System.out.print("Digite o Nome do cliente: ");
         String nome = scanner.nextLine();
