@@ -141,15 +141,11 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
         }
     }
 
-    // Função auxiliar para verificar se a agência já existe
+    // Função auxiliar para verificar se a agência já existe usando Stream API
     private boolean agenciaJaExiste(Agencia novaAgencia) {
-        for (Agencia agencia : agencias) {
-            if (agencia.getNome().equalsIgnoreCase(novaAgencia.getNome()) &&
-                    agencia.getEndereco().equalsIgnoreCase(novaAgencia.getEndereco())) {
-                return true;
-            }
-        }
-        return false;
+        return agencias.stream()
+                .anyMatch(agencia -> agencia.getNome().equalsIgnoreCase(novaAgencia.getNome()) &&
+                        agencia.getEndereco().equalsIgnoreCase(novaAgencia.getEndereco()));
     }
 
 
