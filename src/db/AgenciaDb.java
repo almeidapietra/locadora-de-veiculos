@@ -102,28 +102,57 @@ public class AgenciaDb implements IBancoDeDados<Agencia> {
 
     public void lerAgenciasDoCSV(String caminhoArquivo) {
         String linha = "";
-        String separador = ","; // o separador padrão é a vírgula
+        String separador = ","; // Usualmente, o separador padrão é a vírgula
+        boolean novaAgenciaImportada = false;
 
         try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo))) {
             while ((linha = br.readLine()) != null) {
                 String[] dadosAgencia = linha.split(separador);
 
+                // Supondo que o CSV tenha o formato: Nome, Endereço
                 if (dadosAgencia.length >= 2) {
                     String nomeAgencia = dadosAgencia[0];
-                    String enderecoAgencia = dadosAgencia.length > 1 ? dadosAgencia[1] : "Endereço desconhecido";
+                    String enderecoAgencia = dadosAgencia[1];
 
-                    // Criar uma nova instância de Agência e adicionar à lista
+                    // Criar uma nova instância de Agência
                     Agencia agencia = new Agencia(nomeAgencia, enderecoAgencia);
-                    agencias.add(agencia);
+
+                    // Verificar se a agência já existe
+                    if (agenciaJaExiste(agencia)) {
+                        System.out.println("Erro: A agência '" + nomeAgencia + "' já foi cadastrada.");
+                    } else {
+                        // Adicionar à lista se não existir e exibir no console
+                        agencias.add(agencia);
+                        System.out.println("Nome: " + nomeAgencia + ", Endereço: " + enderecoAgencia);
+                        novaAgenciaImportada = true;
+                    }
                 } else {
                     System.out.println("Formato inválido no CSV para a linha: " + linha);
                 }
             }
-            System.out.println("Importação do CSV concluída com sucesso!");
+
+            if (novaAgenciaImportada) {
+                System.out.println("Importação do CSV concluída com sucesso!");
+            } else {
+                System.out.println("Nenhuma nova agência foi importada.");
+            }
         } catch (IOException e) {
-            System.out.println("Erro ao importar o arquivo CSV: " + e.getMessage());
+            System.out.println("Erro ao ler o arquivo CSV: " + e.getMessage());
         }
     }
+
+    // Função auxiliar para verificar se a agência já existe
+    private boolean agenciaJaExiste(Agencia novaAgencia) {
+        for (Agencia agencia : agencias) {
+            if (agencia.getNome().equalsIgnoreCase(novaAgencia.getNome()) &&
+                    agencia.getEndereco().equalsIgnoreCase(novaAgencia.getEndereco())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }
 
 
